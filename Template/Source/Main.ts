@@ -13,4 +13,7 @@ namespace Template {
     // start the sequence
     ƒS.Progress.go(scenes);
   }
+
+  alert('hallo');
+  alert('hallo');
 }
