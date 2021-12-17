@@ -9,18 +9,25 @@ var Template;
             duration: 1,
             playmode: Template.fs.ANIMATION_PLAYMODE.PLAYONCE
         };
+        let signalDelay = Template.fs.Progress.defineSignal([() => {
+                Template.fs.Progress.delay(1);
+            }]);
+        let testVar = 'aus einer Variablen';
         let dialogues = {
             narrator: {
                 t00: '08:30 - 2 Minuten vor dem Programmier Unterricht.',
                 t01: 'Heute ist der letzte Unterricht vor der Prüfung nächste Woche',
-                t02: 'Eine halbe Stunde später'
+                t02: 'Eine halbe Stunde später',
+                beispiel: `<span class="green">Grüne Farbe</span> das ist ein Beispieltext <span class="red">Rote Farbe</span> <h1>große Schrift</h1> :)`,
+                beispielVar: `Das ist ein Beispiel ${testVar} :)`,
+                link: '<a href="https://google.de" target="_blank">google</a>'
             },
             badProf: {
                 t00: 'Sooooo meine Damen und Herren, denken Sie dran nächste Woche ist die Prüfung. Wir haben alles ausführlich behandelt und ich hab Sie in meinen Augen excellent auf die Prüfung vorbereitet',
                 t01: 'Ein Thema ist allerdings noch besonders wichtig. Es geht um @!daw33132ada@111111!!!@@@sDadad!!!@@@@@@@@@@@@@@#################......',
                 t02: 'Haben Sie dazu noch Fragen? Unklarheiten? Generelle Fragen zur Prüfung?',
                 t03: 'Das gibts ja garnicht!',
-                t04: 'Wunderbar'
+                t04: 'Wunderbar',
             },
             mainChar: {
                 t00: 'Ich habe leider nichts verstanden. Gibt es eine Möglichkeit wo ich das nachlesen kann?',
@@ -30,8 +37,11 @@ var Template;
         getUserName();
         //get UserName
         async function getUserName() {
-            await Template.fs.Speech.tell(null, "Bitte gib deinen Namen hier ein: ", true, 'start--screen');
-            Template.userData.Protagonist.name = await Template.fs.Speech.getInput();
+            //await fs.Speech.tell(null, "Wilkommen in dem Lern Visual Novel zum Thema JavaScript. ", true, 'start--screen');
+            //await fs.Speech.tell(null, "Bitte gib deinen Namen hier ein: ", true, 'start--screen');
+            await Template.fs.Speech.tell(null, dialogues.narrator.beispiel, true, 'start--screen');
+            await Template.fs.Speech.tell(null, dialogues.narrator.beispielVar, true, 'start--screen');
+            await Template.fs.Speech.tell(null, dialogues.narrator.link, true, 'start--screen-link');
             //const playerName = userData.Protagonist.name.toString();
             sequenzOne();
         }
@@ -40,6 +50,7 @@ var Template;
             await Template.fs.Location.show(Template.locations.outSideSchool);
             await Template.fs.update(1);
             await Template.fs.Speech.tell(Template.character.narrator, dialogues.narrator.t00);
+            await signalDelay;
             await Template.fs.Location.show(Template.locations.inSideSchool);
             await Template.fs.update(1);
             await Template.fs.Location.show(Template.locations.insideClassroom);
@@ -70,6 +81,7 @@ var Template;
             let userInput = await Template.fs.Menu.getInput(playerChoices, "player--select");
             switch (userInput) {
                 case playerChoices.C0001:
+                    await Template.fs.Speech.tell(Template.userData.Protagonist, dialogues.mainChar.t00);
                     await Template.fs.Speech.tell(Template.userData.Protagonist, dialogues.mainChar.t00);
                     await Template.fs.update(1);
                     await Template.fs.Character.hide(Template.character.mainCharacter);
@@ -162,8 +174,61 @@ var Template;
             }
         }
     };
+    Template.items = {
+        exampleItem: {
+            name: 'bspItem',
+            desc: 'Ein Beispielitem',
+            img: './Images/items/bspitem.png',
+        }
+    };
+    let menueObj = {
+        safe: 'safe',
+        load: 'load',
+        close: 'close',
+    };
+    let gameMenue;
+    let isMenueOpen = true;
+    async function menueButtonPressed(action) {
+        switch (action) {
+            case menueObj.safe:
+                console.log('saved');
+                await Template.fs.Progress.save();
+                break;
+            case menueObj.load:
+                console.log('load');
+                await Template.fs.Progress.load();
+                break;
+            case menueObj.close:
+                console.log('closed');
+                gameMenue.close();
+                isMenueOpen = false;
+                break;
+        }
+    }
+    document.addEventListener("keydown", handleKeyPressed);
+    async function handleKeyPressed(_event) {
+        switch (_event.code) {
+            case Template.f.KEYBOARD_CODE.F8:
+                await Template.fs.Progress.save();
+                break;
+            case Template.f.KEYBOARD_CODE.F9:
+                await Template.fs.Progress.load();
+                break;
+            case Template.f.KEYBOARD_CODE.ESC:
+                if (!isMenueOpen) {
+                    isMenueOpen = true;
+                    gameMenue.open();
+                }
+                else {
+                    isMenueOpen = false;
+                    gameMenue.close();
+                }
+                break;
+        }
+    }
     window.addEventListener("load", start);
     function start(_event) {
+        gameMenue = Template.fs.Menu.create(menueObj, menueButtonPressed, 'ingame--menue');
         let scenes = [
             { scene: Template.Introduction, name: "Introduction" }
         ];

@@ -25,25 +25,36 @@ speech {
   position: absolute;
   display: flex;
   flex-direction: column;
-  background-color:#fff;
+  background-color:rgba(0, 0, 0, 0.55);
   bottom: 0px;
-  left: 0px;
-  right: 0px;
-  height: 10%;
-  border: 5px solid black;
-  border-radius: 50px;
+  left: 0;
+  right: 0;
+  height: 25%;
   padding: 10px 25px;
 }
 
 speech name {
-  color:red;
+  color: #ffcb37db;
+  font-weight:800;
+  text-align: center;
   margin-bottom:2px;
+  border-bottom: 2px solid #ffcb37db;
+  width:80%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom:5px;
+  margin:0 auto;
+  margin-bottom:15px;
 }
 
 speech content {
-  color:#000;
+  color:#fff;
+  text-align: center;
+  max-width: 80%;
+  font-weight:800;
+  margin: 0 auto;
 }
 
 .Narrator name {
-  color:#000;
+  color: rgb(218, 255, 55);
 }

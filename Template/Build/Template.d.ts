@@ -68,4 +68,11 @@ declare namespace Template {
             };
         };
     };
+    let items: {
+        exampleItem: {
+            name: string;
+            desc: string;
+            img: string;
+        };
+    };
 }
