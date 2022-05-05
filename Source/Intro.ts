@@ -13,16 +13,12 @@ namespace Template {
       fs.Progress.delay(1);
     }]);
 
-    let testVar = 'aus einer Variablen';
 
     let dialogues = {
       narrator: {
         t00: '08:30 - 2 Minuten vor dem Programmier Unterricht.',
         t01: 'Heute ist der letzte Unterricht vor der Prüfung nächste Woche',
         t02: 'Eine halbe Stunde später',
-        beispiel: `<span class="green">Grüne Farbe</span> das ist ein Beispieltext <span class="red">Rote Farbe</span> <h1>große Schrift</h1> :)`,
-        beispielVar: `Das ist ein Beispiel ${testVar} :)`,
-        link: '<a href="https://google.de" target="_blank">google</a>'
       },
       badProf: {
         t00: 'Sooooo meine Damen und Herren, denken Sie dran nächste Woche ist die Prüfung. Wir haben alles ausführlich behandelt und ich hab Sie in meinen Augen excellent auf die Prüfung vorbereitet',
@@ -42,11 +38,8 @@ namespace Template {
 
     //get UserName
     async function getUserName() {
-      //await fs.Speech.tell(null, "Wilkommen in dem Lern Visual Novel zum Thema JavaScript. ", true, 'start--screen');
-      //await fs.Speech.tell(null, "Bitte gib deinen Namen hier ein: ", true, 'start--screen');
-      await fs.Speech.tell(null, dialogues.narrator.beispiel, true, 'start--screen' );
-      await fs.Speech.tell(null, dialogues.narrator.beispielVar, true, 'start--screen' );
-      await fs.Speech.tell(null, dialogues.narrator.link, true, 'start--screen-link' );
+      await fs.Speech.tell(null, "Wilkommen in dem Lern Visual Novel zum Thema JavaScript. ", true, 'start--screen');
+      await fs.Speech.tell(null, "Bitte gib deinen Namen hier ein: ", true, 'start--screen');
       //const playerName = userData.Protagonist.name.toString();
 
       sequenzOne();
