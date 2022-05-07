@@ -7,7 +7,7 @@ namespace learnjs {
       },
       long: {
         duration: 5,
-        alpha: "./Images/transitions/030.jpg",
+        alpha: "./Images/transitions/code.jpg",
         edge: 1
       }
     };

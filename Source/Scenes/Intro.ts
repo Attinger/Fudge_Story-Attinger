@@ -88,6 +88,7 @@ namespace learnjs {
           await fs.update(1);
           await fs.Speech.tell(character.stupidProf, `<p>Das ist ja unerhört <span class="color-red">${userData.Protagonist.name}!!!!!</span> Ich habe meine Pflicht erfüllt, von mir müssen Sie und die gesamte Klasse nichtsmehr erwarten. Wir sehen uns zur Prüfung. Und jetzt verschwinden Sie aus meinem Klassenzimmer und zwar ALLEEEE!!!!!!!!!!!</p>`);
           fs.Speech.clear();
+          fs.Speech.hide();
           fs.Character.hideAll();
           goToNextScene();
           await fs.update(1);
@@ -102,6 +103,7 @@ namespace learnjs {
           await fs.update(1);
           await fs.Speech.tell(character.stupidProf, `<p>Das dachte ich mir bereits. Wer hier nichts versteht hat sowieso keine Zukunft!!!!!</span>Wir sehen uns zur Prüfung. Und jetzt verschwinden Sie aus meinem Klassenzimmer und zwar ALLEEEE!!!!!!!!!!!</p>`);
           fs.Speech.clear();
+          fs.Speech.hide();
           fs.Character.hideAll();
           goToNextScene();
           await fs.update(1);

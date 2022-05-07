@@ -3,120 +3,6 @@ var learnjs;
 (function (learnjs) {
     learnjs.f = FudgeCore;
     learnjs.fs = FudgeStory;
-    learnjs.userData = {
-        Protagonist: {
-            name: 'Default',
-        },
-    };
-    learnjs.transition = {
-        clock: {
-            duration: 1,
-            alpha: "./Images/bsp-trans-one.png",
-            edge: 1
-        },
-    };
-    learnjs.locations = {
-        classMates: {
-            name: "classroom",
-            background: "./Images/rooms/vn-class.jpg"
-        },
-        classMatesQuestions: {
-            name: "classroomquestion",
-            background: "./Images/rooms/vn-class-questions.jpg"
-        },
-        outSideSchool: {
-            name: "outsideschool",
-            background: "./Images/rooms/vn-school-outside.jpg"
-        },
-        inSideSchool: {
-            name: "insideschool",
-            background: "./Images/rooms/vn-school-inside.jpg"
-        },
-        insideClassroom: {
-            name: "insideclassroom",
-            background: "./Images/rooms/vn-classroom.jpg"
-        },
-    };
-    learnjs.character = {
-        narrator: {
-            name: 'Narrator',
-        },
-        stupidProf: {
-            name: 'Prof. Dr. Harabashi Tadinpachi',
-            origin: learnjs.fs.ORIGIN.BOTTOMLEFT,
-            pose: {
-                normal: "./Images/prof/uni-prof-normal.png",
-                happy: "./Images/prof/uni-prof-happy.png",
-                angry: "./Images/prof/uni-prof-angry.png",
-                laugh: "./Images/prof/uni-prof-laugh.png"
-            }
-        },
-        goodProf: {
-            name: 'Dr JavaScript',
-            origin: learnjs.fs.ORIGIN.BOTTOMLEFT,
-            pose: {
-                normal: "./Images/main-character/main-char-mid-scaled.png",
-                angry: "./Images/main-character/main-char-mid-angry.png",
-            }
-        },
-        mainCharacter: {
-            name: '',
-            origin: learnjs.fs.ORIGIN.BOTTOMLEFT,
-            pose: {
-                normal: "./Images/main-character/mc-normal.png",
-            }
-        }
-    };
-    learnjs.items = {
-        exampleItem: {
-            name: 'bspItem',
-            desc: 'Ein Beispielitem',
-            img: './Images/items/bspitem.png',
-        }
-    };
-    let menueObj = {
-        safe: 'safe',
-        load: 'load',
-        close: 'close',
-    };
-    let gameMenue;
-    let isMenueOpen = true;
-    async function menueButtonPressed(action) {
-        switch (action) {
-            case menueObj.safe:
-                await learnjs.fs.Progress.save();
-                break;
-            case menueObj.load:
-                await learnjs.fs.Progress.load();
-                break;
-            case menueObj.close:
-                gameMenue.close();
-                isMenueOpen = false;
-                break;
-        }
-    }
-    document.addEventListener("keydown", handleKeyPressed);
-    async function handleKeyPressed(_event) {
-        switch (_event.code) {
-            case learnjs.f.KEYBOARD_CODE.F8:
-                await learnjs.fs.Progress.save();
-                break;
-            case learnjs.f.KEYBOARD_CODE.F9:
-                await learnjs.fs.Progress.load();
-                break;
-            case learnjs.f.KEYBOARD_CODE.ESC:
-                if (!isMenueOpen) {
-                    gameMenue = learnjs.fs.Menu.create(menueObj, menueButtonPressed, 'ingame--menue');
-                    isMenueOpen = true;
-                    gameMenue.open();
-                }
-                else {
-                    isMenueOpen = false;
-                    gameMenue.close();
-                }
-                break;
-        }
-    }
     window.addEventListener("load", start);
     function start(_event) {
         const uiElement = document.querySelector("[type=interface]");
@@ -127,7 +13,8 @@ var learnjs;
             learnjs.fs.Text.print("<p>Tastaturbelegung:</p> <p>Menü aufrufen: ESC</p>");
         }
         let scenes = [
-            { id: "intro", scene: learnjs.Introduction, name: "Introduction" },
+            //{ id: "intro", scene: Introduction, name: "Introduction" },
+            { id: "Home", scene: learnjs.Home, name: "Home" },
         ];
         // start the sequence
         learnjs.fs.Progress.go(scenes);
@@ -143,16 +30,36 @@ var learnjs;
         },
         long: {
             duration: 5,
-            alpha: "./Images/transitions/030.jpg",
+            alpha: "./Images/transitions/code.jpg",
             edge: 1
         }
     };
 })(learnjs || (learnjs = {}));
 var learnjs;
 (function (learnjs) {
+    learnjs.items = {
+        exampleItem: {
+            name: 'bspItem',
+            desc: 'Ein Beispielitem',
+            img: './Images/items/bspitem.png',
+        }
+    };
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
     async function Home() {
-        await learnjs.fs.Speech.tell(null, "<p>Test</p>");
-        await learnjs.fs.Speech.hide();
+        let slideOut = {
+            start: { translation: learnjs.fs.positions.bottomleft },
+            end: { translation: learnjs.fs.positions.bottomright },
+            duration: 1,
+            playmode: learnjs.fs.ANIMATION_PLAYMODE.PLAYONCE
+        };
+        await learnjs.fs.Location.show(learnjs.locations.outSideSchool);
+        await learnjs.fs.Character.show(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.fs.positionPercent(0, 100));
+        await learnjs.fs.update(1);
+        await learnjs.fs.Speech.tell(learnjs.character.narrator, `<span class="color-red">${learnjs.userData.Protagonist.name}</span> ist auf dem Weg nachhause`);
+        await learnjs.fs.Character.animate(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, slideOut);
+        await learnjs.fs.Speech.tell(learnjs.character.narrator, 'Etwas später');
     }
     learnjs.Home = Home;
 })(learnjs || (learnjs = {}));
@@ -237,6 +144,7 @@ var learnjs;
                     await learnjs.fs.update(1);
                     await learnjs.fs.Speech.tell(learnjs.character.stupidProf, `<p>Das ist ja unerhört <span class="color-red">${learnjs.userData.Protagonist.name}!!!!!</span> Ich habe meine Pflicht erfüllt, von mir müssen Sie und die gesamte Klasse nichtsmehr erwarten. Wir sehen uns zur Prüfung. Und jetzt verschwinden Sie aus meinem Klassenzimmer und zwar ALLEEEE!!!!!!!!!!!</p>`);
                     learnjs.fs.Speech.clear();
+                    learnjs.fs.Speech.hide();
                     learnjs.fs.Character.hideAll();
                     goToNextScene();
                     await learnjs.fs.update(1);
@@ -251,6 +159,7 @@ var learnjs;
                     await learnjs.fs.update(1);
                     await learnjs.fs.Speech.tell(learnjs.character.stupidProf, `<p>Das dachte ich mir bereits. Wer hier nichts versteht hat sowieso keine Zukunft!!!!!</span>Wir sehen uns zur Prüfung. Und jetzt verschwinden Sie aus meinem Klassenzimmer und zwar ALLEEEE!!!!!!!!!!!</p>`);
                     learnjs.fs.Speech.clear();
+                    learnjs.fs.Speech.hide();
                     learnjs.fs.Character.hideAll();
                     goToNextScene();
                     await learnjs.fs.update(1);
@@ -263,5 +172,117 @@ var learnjs;
         }
     }
     learnjs.Introduction = Introduction;
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
+    learnjs.character = {
+        narrator: {
+            name: 'Narrator',
+        },
+        stupidProf: {
+            name: 'Prof. Dr. Harabashi Tadinpachi',
+            origin: learnjs.fs.ORIGIN.BOTTOMLEFT,
+            pose: {
+                normal: "./Images/prof/uni-prof-normal.png",
+                happy: "./Images/prof/uni-prof-happy.png",
+                angry: "./Images/prof/uni-prof-angry.png",
+                laugh: "./Images/prof/uni-prof-laugh.png"
+            }
+        },
+        goodProf: {
+            name: 'Dr JavaScript',
+            origin: learnjs.fs.ORIGIN.BOTTOMLEFT,
+            pose: {
+                normal: "./Images/main-character/main-char-mid-scaled.png",
+                angry: "./Images/main-character/main-char-mid-angry.png",
+            }
+        },
+        mainCharacter: {
+            name: '',
+            origin: learnjs.fs.ORIGIN.BOTTOMLEFT,
+            pose: {
+                normal: "./Images/main-character/mc-normal.png",
+            }
+        }
+    };
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
+    let menueObj = {
+        safe: 'safe',
+        load: 'load',
+        close: 'close',
+    };
+    let gameMenue;
+    let isMenueOpen = true;
+    async function menueButtonPressed(action) {
+        switch (action) {
+            case menueObj.safe:
+                await learnjs.fs.Progress.save();
+                break;
+            case menueObj.load:
+                await learnjs.fs.Progress.load();
+                break;
+            case menueObj.close:
+                gameMenue.close();
+                isMenueOpen = false;
+                break;
+        }
+    }
+    document.addEventListener("keydown", handleKeyPressed);
+    async function handleKeyPressed(_event) {
+        switch (_event.code) {
+            case learnjs.f.KEYBOARD_CODE.F8:
+                await learnjs.fs.Progress.save();
+                break;
+            case learnjs.f.KEYBOARD_CODE.F9:
+                await learnjs.fs.Progress.load();
+                break;
+            case learnjs.f.KEYBOARD_CODE.ESC:
+                if (!isMenueOpen) {
+                    gameMenue = learnjs.fs.Menu.create(menueObj, menueButtonPressed, 'ingame--menue');
+                    isMenueOpen = true;
+                    gameMenue.open();
+                }
+                else {
+                    isMenueOpen = false;
+                    gameMenue.close();
+                }
+                break;
+        }
+    }
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
+    learnjs.locations = {
+        classMates: {
+            name: "classroom",
+            background: "./Images/rooms/vn-class.jpg"
+        },
+        classMatesQuestions: {
+            name: "classroomquestion",
+            background: "./Images/rooms/vn-class-questions.jpg"
+        },
+        outSideSchool: {
+            name: "outsideschool",
+            background: "./Images/rooms/vn-school-outside.jpg"
+        },
+        inSideSchool: {
+            name: "insideschool",
+            background: "./Images/rooms/vn-school-inside.jpg"
+        },
+        insideClassroom: {
+            name: "insideclassroom",
+            background: "./Images/rooms/vn-classroom.jpg"
+        },
+    };
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
+    learnjs.userData = {
+        Protagonist: {
+            name: 'Default',
+        },
+    };
 })(learnjs || (learnjs = {}));
 //# sourceMappingURL=learnjs.js.map

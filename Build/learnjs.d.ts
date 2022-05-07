@@ -1,40 +1,37 @@
 declare namespace learnjs {
     export import f = FudgeCore;
     export import fs = FudgeStory;
-    let userData: {
-        Protagonist: {
-            name: string;
-        };
-    };
-    let transition: {
+}
+declare namespace learnjs {
+    let transitions: {
         clock: {
             duration: number;
             alpha: string;
             edge: number;
         };
-    };
-    let locations: {
-        classMates: {
-            name: string;
-            background: string;
-        };
-        classMatesQuestions: {
-            name: string;
-            background: string;
-        };
-        outSideSchool: {
-            name: string;
-            background: string;
-        };
-        inSideSchool: {
-            name: string;
-            background: string;
-        };
-        insideClassroom: {
-            name: string;
-            background: string;
+        long: {
+            duration: number;
+            alpha: string;
+            edge: number;
         };
     };
+}
+declare namespace learnjs {
+    let items: {
+        exampleItem: {
+            name: string;
+            desc: string;
+            img: string;
+        };
+    };
+}
+declare namespace learnjs {
+    function Home(): fs.SceneReturn;
+}
+declare namespace learnjs {
+    function Introduction(): fs.SceneReturn;
+}
+declare namespace learnjs {
     let character: {
         narrator: {
             name: string;
@@ -65,31 +62,37 @@ declare namespace learnjs {
             };
         };
     };
-    let items: {
-        exampleItem: {
+}
+declare namespace learnjs {
+}
+declare namespace learnjs {
+    let locations: {
+        classMates: {
             name: string;
-            desc: string;
-            img: string;
+            background: string;
+        };
+        classMatesQuestions: {
+            name: string;
+            background: string;
+        };
+        outSideSchool: {
+            name: string;
+            background: string;
+        };
+        inSideSchool: {
+            name: string;
+            background: string;
+        };
+        insideClassroom: {
+            name: string;
+            background: string;
         };
     };
 }
 declare namespace learnjs {
-    let transitions: {
-        clock: {
-            duration: number;
-            alpha: string;
-            edge: number;
-        };
-        long: {
-            duration: number;
-            alpha: string;
-            edge: number;
+    let userData: {
+        Protagonist: {
+            name: string;
         };
     };
-}
-declare namespace learnjs {
-    function Home(): fs.SceneReturn;
-}
-declare namespace learnjs {
-    function Introduction(): fs.SceneReturn;
 }
