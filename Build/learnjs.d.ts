@@ -74,12 +74,6 @@ declare namespace learnjs {
     };
 }
 declare namespace learnjs {
-    function Home(): fs.SceneReturn;
-}
-declare namespace learnjs {
-    function Introduction(): fs.SceneReturn;
-}
-declare namespace learnjs {
     let transitions: {
         clock: {
             duration: number;
@@ -92,4 +86,10 @@ declare namespace learnjs {
             edge: number;
         };
     };
+}
+declare namespace learnjs {
+    function Home(): fs.SceneReturn;
+}
+declare namespace learnjs {
+    function Introduction(): fs.SceneReturn;
 }

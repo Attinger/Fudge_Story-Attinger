@@ -135,6 +135,21 @@ var learnjs;
 })(learnjs || (learnjs = {}));
 var learnjs;
 (function (learnjs) {
+    learnjs.transitions = {
+        clock: {
+            duration: 1,
+            alpha: "./Images/transitions/020.jpg",
+            edge: 1
+        },
+        long: {
+            duration: 5,
+            alpha: "./Images/transitions/030.jpg",
+            edge: 1
+        }
+    };
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
     async function Home() {
         await learnjs.fs.Speech.tell(null, "<p>Test</p>");
         await learnjs.fs.Speech.hide();
@@ -248,20 +263,5 @@ var learnjs;
         }
     }
     learnjs.Introduction = Introduction;
-})(learnjs || (learnjs = {}));
-var learnjs;
-(function (learnjs) {
-    learnjs.transitions = {
-        clock: {
-            duration: 1,
-            alpha: "./Images/transitions/020.jpg",
-            edge: 1
-        },
-        long: {
-            duration: 5,
-            alpha: "./Images/transitions/030.jpg",
-            edge: 1
-        }
-    };
 })(learnjs || (learnjs = {}));
 //# sourceMappingURL=learnjs.js.map
