@@ -1,6 +1,5 @@
-namespace Template {
+namespace learnjs {
   export async function Introduction(): fs.SceneReturn {
-    console.log("Intro");
 
     let slideIn: fs.AnimationDefinition = {
       start: { translation: fs.positions.bottomright},
@@ -9,26 +8,24 @@ namespace Template {
       playmode: fs.ANIMATION_PLAYMODE.PLAYONCE
     }
 
-    let signalDelay: fs.Signal = fs.Progress.defineSignal([ () => {
-      fs.Progress.delay(1);
-    }]);
-
+    //let signalDelay: fs.Signal = fs.Progress.defineSignal([ () => {
+      //fs.Progress.delay(1);
+    //}]);
 
     let dialogues = {
       narrator: {
         t00: '08:30 - 2 Minuten vor dem Programmier Unterricht.',
-        t01: 'Heute ist der letzte Unterricht vor der Prüfung nächste Woche',
+        t01: 'Heute ist der letzte Unterricht vor der Progammier - Prüfung nächste Woche',
         t02: 'Eine halbe Stunde später',
       },
       badProf: {
-        t00: 'Sooooo meine Damen und Herren, denken Sie dran nächste Woche ist die Prüfung. Wir haben alles ausführlich behandelt und ich hab Sie in meinen Augen excellent auf die Prüfung vorbereitet',
-        t01: 'Ein Thema ist allerdings noch besonders wichtig. Es geht um @!daw33132ada@111111!!!@@@sDadad!!!@@@@@@@@@@@@@@#################......',
+        t00: 'Guuuuuuten Morgen meine Damen und Herren. Wie sie alle wissen sollten, schreiben wir nächste Woche die berühmt berüchtigte Prüfung wo die durchfallquote letztes Semester nur bei 90% lag. Wir haben alles ausführlich behandelt und ich habe Sie natürlich excellent auf die Prüfung vorbereitet',
+        t01: 'Es geht um die gesamten Grundlagen die wir in diesem Semester behandelt haben. Ein Thema ist allerdings noch besonders wichtig. Es geht um @!daw33132ada@111111!!!@@@sDadad!!!@@@@@@@@@@@@@@#################......',
         t02: 'Haben Sie dazu noch Fragen? Unklarheiten? Generelle Fragen zur Prüfung?',
-        t03: 'Das gibts ja garnicht!',
         t04: 'Wunderbar',
       },
       mainChar: {
-        t00: 'Ich habe leider nichts verstanden. Gibt es eine Möglichkeit wo ich das nachlesen kann?',
+        t00: 'Ich glaube Ich spreche für alle wenn ich sage wir haben nichts verstanden! Können wir das irgendwo nachlesen?',
         t01: '...',
       }
     };
@@ -36,25 +33,23 @@ namespace Template {
 
     getUserName();
 
-    //get UserName
     async function getUserName() {
-      await fs.Speech.tell(null, "Wilkommen in dem Lern Visual Novel zum Thema JavaScript. ", true, 'start--screen');
-      await fs.Speech.tell(null, "Bitte gib deinen Namen hier ein: ", true, 'start--screen');
-      //const playerName = userData.Protagonist.name.toString();
-
+      await fs.Speech.tell(null, "<p>Bevor es losgeht, am unterem rechtem Rand deines Bildschirms findest du einen Hilfe Button wo alle Tastaturbefehle zu finden sind:</p><p>Im Menü kannst du Speichern, ein Spielstand laden und das Intro überspringen</p><p>Wenn du mir jetzt noch verrätst wie du heißt geht es direkt los</p>", true, 'introduction-text');
+      userData.Protagonist.name = await fs.Speech.getInput();
+      fs.Speech.hide();
       sequenzOne();
     }
 
     //actual Scene.
     async function sequenzOne() {
       await fs.Location.show(locations.outSideSchool);
+      await fs.update(transitions.long.duration, transitions.long.alpha, transitions.long.edge);
       await fs.update(1);
       await fs.Speech.tell(character.narrator, dialogues.narrator.t00);
-      await signalDelay;
       await fs.Location.show(locations.inSideSchool);
       await fs.update(1);
-      await fs.Location.show(locations.insideClassroom);
       await fs.Speech.tell(character.narrator, dialogues.narrator.t01);
+      await fs.Location.show(locations.insideClassroom);
       await fs.Character.animate(character.stupidProf, character.stupidProf.pose.normal, slideIn);
       await fs.update(1);
       await fs.Speech.tell(character.stupidProf, dialogues.badProf.t00);
@@ -71,10 +66,10 @@ namespace Template {
       await fs.Location.show(locations.classMatesQuestions);
       await fs.Character.animate(character.mainCharacter, character.mainCharacter.pose.normal, slideIn);
       await fs.update(1);
-      playerChoice();
+      saySomethingOrNot();
     }
 
-    async function playerChoice() {
+    async function saySomethingOrNot() {
       let playerChoices = {
         C0001: "Sagen das niemand was verstanden hat",
         C0002: "Nichts sagen"
@@ -84,26 +79,38 @@ namespace Template {
 
       switch (userInput) {
         case playerChoices.C0001:
-          await fs.Speech.tell(userData.Protagonist, dialogues.mainChar.t00);
+          await fs.update(1);
           await fs.Speech.tell(userData.Protagonist, dialogues.mainChar.t00);
           await fs.update(1);
           await fs.Character.hide(character.mainCharacter);
           await fs.Location.show(locations.insideClassroom);
           await fs.Character.show(character.stupidProf, character.stupidProf.pose.angry, fs.positionPercent(0, 100));
-          await fs.Speech.tell(character.stupidProf, dialogues.badProf.t03);
           await fs.update(1);
-          break
+          await fs.Speech.tell(character.stupidProf, `<p>Das ist ja unerhört <span class="color-red">${userData.Protagonist.name}!!!!!</span> Ich habe meine Pflicht erfüllt, von mir müssen Sie und die gesamte Klasse nichtsmehr erwarten. Wir sehen uns zur Prüfung. Und jetzt verschwinden Sie aus meinem Klassenzimmer und zwar ALLEEEE!!!!!!!!!!!</p>`);
+          fs.Speech.clear();
+          fs.Character.hideAll();
+          goToNextScene();
+          await fs.update(1);
+          break;
         case playerChoices.C0002:
+          await fs.update(1);
           await fs.Speech.tell(userData.Protagonist, dialogues.mainChar.t01);
           await fs.update(1);
           await fs.Character.hide(character.mainCharacter);
           await fs.Location.show(locations.insideClassroom);
-          await fs.Character.show(character.stupidProf, character.stupidProf.pose.happy, fs.positionPercent(0, 100));
-          await fs.update(0);
-          await fs.Speech.tell(character.stupidProf, dialogues.badProf.t04);
-          await fs.update(0);
-          break
+          await fs.Character.show(character.stupidProf, character.stupidProf.pose.angry, fs.positionPercent(0, 100));
+          await fs.update(1);
+          await fs.Speech.tell(character.stupidProf, `<p>Das dachte ich mir bereits. Wer hier nichts versteht hat sowieso keine Zukunft!!!!!</span>Wir sehen uns zur Prüfung. Und jetzt verschwinden Sie aus meinem Klassenzimmer und zwar ALLEEEE!!!!!!!!!!!</p>`);
+          fs.Speech.clear();
+          fs.Character.hideAll();
+          goToNextScene();
+          await fs.update(1);
+          break;
       };
+    }
+
+    function goToNextScene() {
+      return Home();
     }
   }
 }

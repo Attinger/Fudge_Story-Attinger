@@ -1,0 +1,27 @@
+.player--select {
+    background-color:transparent;
+}
+
+.player--select button {
+    display:flex;
+    cursor: pointer;
+    color:white;
+    background-color:black;
+    padding:25px 25px;
+    margin: 15px auto;
+    transition:all 0.3s ease-in-out;
+    width:90%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size:16px;
+    border:1px solid white;
+}
+
+.player--select button:hover {
+    color:black;
+    background-color:white;
+    border:1px solid black;
+    transform: scale(1.1);
+    border-radius:25px;
+}

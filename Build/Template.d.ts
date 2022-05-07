@@ -1,4 +1,7 @@
-declare namespace learnjs {
+declare namespace Template {
+    function Introduction(): fs.SceneReturn;
+}
+declare namespace Template {
     export import f = FudgeCore;
     export import fs = FudgeStory;
     let userData: {
@@ -70,26 +73,6 @@ declare namespace learnjs {
             name: string;
             desc: string;
             img: string;
-        };
-    };
-}
-declare namespace learnjs {
-    function Home(): fs.SceneReturn;
-}
-declare namespace learnjs {
-    function Introduction(): fs.SceneReturn;
-}
-declare namespace learnjs {
-    let transitions: {
-        clock: {
-            duration: number;
-            alpha: string;
-            edge: number;
-        };
-        long: {
-            duration: number;
-            alpha: string;
-            edge: number;
         };
     };
 }

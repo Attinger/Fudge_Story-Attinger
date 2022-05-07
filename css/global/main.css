@@ -1,0 +1,131 @@
+html, body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+  background-color: white;
+  overflow: hidden;
+  font-family:'Gill Sans', 'Gill Sans MT', sans-serif;
+  font-size: larger;
+  background-image: url('../../Images/backgrounds/vn-bg-all.jpg');
+  background-size:cover;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.rainbow {
+  background-image: linear-gradient(90deg, #F79533 0%, #F37055 15%, #EF4E7B 30%, #A166AB 44%, #5073B8 58%, #1098AD 72%, #07B39B 86%, #6DBA82 100%);
+  background-size: cover;
+  background-clip: text;
+  -webkit-background-clip: text;
+  font-size:155px;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+  0px 8px 13px rgba(0,0,0,0.1),
+  0px 18px 23px rgba(0,0,0,0.1);
+}
+
+.default-header {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin:auto auto;
+}
+
+.default-home {
+  display:none;
+}
+  
+scene {
+  width: 1280px;
+  height: 720px;
+  display: inline-block;
+  position: absolute;
+}
+  
+canvas {
+  width: 100%;
+  height: 100%;
+}
+  
+speech { 
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color:rgba(0, 0, 0, 0.55);
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  height: 25%;
+  padding: 10px 25px;
+}
+
+speech name {
+  color: #ffcb37db;
+  font-weight:800;
+  text-align: center;
+  margin-bottom:2px;
+  border-bottom: 2px solid #ffcb37db;
+  width:80%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom:5px;
+  margin:0 auto;
+  margin-bottom:15px;
+}
+
+speech content {
+  color:#fff;
+  text-align: center;
+  max-width: 80%;
+  font-weight:800;
+  margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.Narrator name {
+  color: rgb(218, 255, 55);
+}
+
+.help {
+  position: absolute;
+  bottom: 15px;
+  right:3px;
+  width:50px;
+  height:50px;
+  color:black;
+  background-color:white;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border-radius:50%;
+  cursor: pointer;
+  z-index: 99999999999;
+  transition:all 0.4s;
+}
+
+.help:hover {
+  transform: scale(1.2);
+  background-color:grey;
+}
+
+.help-icon {
+  color:black;
+  background-image: url('../../Images/question-solid.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width:25px;
+  height:25px;
+}
+
+.color-red {
+  color:red;
+}
+
+.one-text {
+  display:flex;
+}

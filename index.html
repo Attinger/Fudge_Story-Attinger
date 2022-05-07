@@ -4,8 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="main.css">
-  <link rel="stylesheet" href="./css/startscreen.css">
+  <link rel="stylesheet" href="./css/global/main.css">
+  <link rel="stylesheet" href="./css/scenes/startscreen.css">
+  <link rel="stylesheet" href="./css/scenes/intro.css">
+  <link rel="stylesheet" href="./css/global/button.css">
   <script src="Fudge/FudgeCore.js"></script>
   <script src="FudgeStory/FudgeStory.js"></script>
   <script src="./Build/learnjs.js"></script>
@@ -15,16 +17,23 @@
 
 <body>
   <scene>
-    <dialog type="splash" open>
+    <dialog class="default-header" type="splash" open>
       <img id="FudgeStoryLogo" theme="dark" /> <!-- use "light" or "dark" -->
-      <p>
-        Fudge Story Tutorial SS22
+      <h1 class="rainbow">LearnJS</h1>
+      <p class="text-center"> 
+        Eine Visual Novel um Wissen über die Grundlagen von JavaScript zu erlangen.
+      </p>
+      <p class="text-center">
+        Ersteller der Visual Novel: <b>Kevin Attinger</b><i> OMB 7</i>
+      </p>
+      <p class="text-center">
+        Kurs: <b>WPM Visual Novel</b> Dozent: <i>Riem</i>
       </p>
     </dialog>
 
     <canvas></canvas>
 
-    <speech>
+    <speech class="default-home">
       <name></name>
       <content></content>
     </speech>
@@ -36,6 +45,10 @@
     <div type="interface">
     </div>
   </scene>
+
+  <div class="help">
+    <div class="help-icon"></div>
+  </div>
 </body>
 
 </html>

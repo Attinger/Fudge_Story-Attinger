@@ -1,4 +1,4 @@
-namespace Template {
+namespace learnjs {
   export import f = FudgeCore;
   export import fs = FudgeStory;
 
@@ -91,15 +91,12 @@ namespace Template {
   async function menueButtonPressed(action: string): Promise<void> {
     switch (action) {
       case menueObj.safe:
-        console.log('saved');
         await fs.Progress.save();
         break;
       case menueObj.load:
-        console.log('load');
         await fs.Progress.load();
         break;
       case menueObj.close:
-        console.log('closed');
         gameMenue.close();
         isMenueOpen = false;
         break;
@@ -117,6 +114,7 @@ namespace Template {
         break;
       case f.KEYBOARD_CODE.ESC:
         if (!isMenueOpen) {
+          gameMenue = fs.Menu.create(menueObj, menueButtonPressed, 'ingame--menue');
           isMenueOpen = true;
           gameMenue.open();
         } else {
@@ -130,13 +128,21 @@ namespace Template {
 
   window.addEventListener("load", start);
   function start(_event: Event): void {
-    gameMenue = fs.Menu.create(menueObj, menueButtonPressed, 'ingame--menue');
-    let scenes: fs.Scenes = [
-      { scene: Introduction, name: "Introduction" }
-    ];
-
     const uiElement: HTMLElement = document.querySelector("[type=interface]");
     userData = fs.Progress.setData(userData, uiElement);
+
+    const helpButton = document.querySelector('.help');
+
+    helpButton.addEventListener('click', helpOptions);
+  
+    async function helpOptions() {
+      fs.Text.print("<p>Tastaturbelegung:</p> <p>Menü aufrufen: ESC</p>");
+    }
+
+
+    let scenes: fs.Scenes = [
+      { id: "intro", scene: Introduction, name: "Introduction" },
+    ];
 
     // start the sequence
     fs.Progress.go(scenes);
