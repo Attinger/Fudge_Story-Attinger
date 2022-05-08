@@ -32,6 +32,10 @@ declare namespace learnjs {
     function Introduction(): fs.SceneReturn;
 }
 declare namespace learnjs {
+    function slideInAnimation(): fs.AnimationDefinition;
+    function slideOutAnimation(): fs.AnimationDefinition;
+}
+declare namespace learnjs {
     let character: {
         narrator: {
             name: string;
@@ -52,6 +56,9 @@ declare namespace learnjs {
             pose: {
                 normal: string;
                 angry: string;
+                surprised: string;
+                distance: string;
+                stunned: string;
             };
         };
         mainCharacter: {
@@ -59,6 +66,14 @@ declare namespace learnjs {
             origin: f.ORIGIN2D;
             pose: {
                 normal: string;
+            };
+        };
+        mcMom: {
+            name: string;
+            origin: f.ORIGIN2D;
+            pose: {
+                happy: string;
+                angry: string;
             };
         };
     };
@@ -84,6 +99,18 @@ declare namespace learnjs {
             background: string;
         };
         insideClassroom: {
+            name: string;
+            background: string;
+        };
+        homeFloor: {
+            name: string;
+            background: string;
+        };
+        homeRoom: {
+            name: string;
+            background: string;
+        };
+        heaven: {
             name: string;
             background: string;
         };

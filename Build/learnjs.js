@@ -48,33 +48,20 @@ var learnjs;
 var learnjs;
 (function (learnjs) {
     async function Home() {
-        let slideOut = {
-            start: { translation: learnjs.fs.positions.bottomleft },
-            end: { translation: learnjs.fs.positions.bottomright },
-            duration: 1,
-            playmode: learnjs.fs.ANIMATION_PLAYMODE.PLAYONCE
-        };
         await learnjs.fs.Location.show(learnjs.locations.outSideSchool);
         await learnjs.fs.Character.show(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.fs.positionPercent(0, 100));
         await learnjs.fs.update(1);
         await learnjs.fs.Speech.tell(learnjs.character.narrator, `<span class="color-red">${learnjs.userData.Protagonist.name}</span> ist auf dem Weg nachhause`);
-        await learnjs.fs.Character.animate(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, slideOut);
+        await learnjs.fs.Character.animate(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.slideOutAnimation());
         await learnjs.fs.Speech.tell(learnjs.character.narrator, 'Etwas später');
+        await learnjs.fs.Location.show(learnjs.locations.homeFloor);
+        await learnjs.fs.update(1);
     }
     learnjs.Home = Home;
 })(learnjs || (learnjs = {}));
 var learnjs;
 (function (learnjs) {
     async function Introduction() {
-        let slideIn = {
-            start: { translation: learnjs.fs.positions.bottomright },
-            end: { translation: learnjs.fs.positions.bottomleft },
-            duration: 1,
-            playmode: learnjs.fs.ANIMATION_PLAYMODE.PLAYONCE
-        };
-        //let signalDelay: fs.Signal = fs.Progress.defineSignal([ () => {
-        //fs.Progress.delay(1);
-        //}]);
         let dialogues = {
             narrator: {
                 t00: '08:30 - 2 Minuten vor dem Programmier Unterricht.',
@@ -96,7 +83,7 @@ var learnjs;
         async function getUserName() {
             await learnjs.fs.Speech.tell(null, "<p>Bevor es losgeht, am unterem rechtem Rand deines Bildschirms findest du einen Hilfe Button wo alle Tastaturbefehle zu finden sind:</p><p>Im Menü kannst du Speichern, ein Spielstand laden und das Intro überspringen</p><p>Wenn du mir jetzt noch verrätst wie du heißt geht es direkt los</p>", true, 'introduction-text');
             learnjs.userData.Protagonist.name = await learnjs.fs.Speech.getInput();
-            learnjs.fs.Speech.hide();
+            await learnjs.fs.Speech.hide();
             sequenzOne();
         }
         //actual Scene.
@@ -109,7 +96,7 @@ var learnjs;
             await learnjs.fs.update(1);
             await learnjs.fs.Speech.tell(learnjs.character.narrator, dialogues.narrator.t01);
             await learnjs.fs.Location.show(learnjs.locations.insideClassroom);
-            await learnjs.fs.Character.animate(learnjs.character.stupidProf, learnjs.character.stupidProf.pose.normal, slideIn);
+            await learnjs.fs.Character.animate(learnjs.character.stupidProf, learnjs.character.stupidProf.pose.normal, learnjs.slideInAnimation());
             await learnjs.fs.update(1);
             await learnjs.fs.Speech.tell(learnjs.character.stupidProf, dialogues.badProf.t00);
             await learnjs.fs.Speech.tell(learnjs.character.stupidProf, dialogues.badProf.t01);
@@ -123,9 +110,10 @@ var learnjs;
             await learnjs.fs.Character.hideAll();
             await learnjs.fs.update(1);
             await learnjs.fs.Location.show(learnjs.locations.classMatesQuestions);
-            await learnjs.fs.Character.animate(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, slideIn);
-            await learnjs.fs.update(1);
-            saySomethingOrNot();
+            await learnjs.fs.Character.animate(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.slideInAnimation());
+            await learnjs.fs.update(1).then(() => {
+                saySomethingOrNot();
+            });
         }
         async function saySomethingOrNot() {
             let playerChoices = {
@@ -146,8 +134,9 @@ var learnjs;
                     learnjs.fs.Speech.clear();
                     learnjs.fs.Speech.hide();
                     learnjs.fs.Character.hideAll();
-                    goToNextScene();
-                    await learnjs.fs.update(1);
+                    await learnjs.fs.update(1).then(() => {
+                        goToNextScene();
+                    });
                     break;
                 case playerChoices.C0002:
                     await learnjs.fs.update(1);
@@ -161,8 +150,9 @@ var learnjs;
                     learnjs.fs.Speech.clear();
                     learnjs.fs.Speech.hide();
                     learnjs.fs.Character.hideAll();
-                    goToNextScene();
-                    await learnjs.fs.update(1);
+                    await learnjs.fs.update(1).then(() => {
+                        goToNextScene();
+                    });
                     break;
             }
             ;
@@ -175,9 +165,30 @@ var learnjs;
 })(learnjs || (learnjs = {}));
 var learnjs;
 (function (learnjs) {
+    function slideInAnimation() {
+        return {
+            start: { translation: learnjs.fs.positions.bottomright },
+            end: { translation: learnjs.fs.positions.bottomleft },
+            duration: 1,
+            playmode: learnjs.fs.ANIMATION_PLAYMODE.PLAYONCE
+        };
+    }
+    learnjs.slideInAnimation = slideInAnimation;
+    function slideOutAnimation() {
+        return {
+            start: { translation: learnjs.fs.positions.bottomleft },
+            end: { translation: learnjs.fs.positions.bottomright },
+            duration: 1,
+            playmode: learnjs.fs.ANIMATION_PLAYMODE.PLAYONCE
+        };
+    }
+    learnjs.slideOutAnimation = slideOutAnimation;
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
     learnjs.character = {
         narrator: {
-            name: 'Narrator',
+            name: 'Erzähler',
         },
         stupidProf: {
             name: 'Prof. Dr. Harabashi Tadinpachi',
@@ -193,8 +204,11 @@ var learnjs;
             name: 'Dr JavaScript',
             origin: learnjs.fs.ORIGIN.BOTTOMLEFT,
             pose: {
-                normal: "./Images/main-character/main-char-mid-scaled.png",
-                angry: "./Images/main-character/main-char-mid-angry.png",
+                normal: "./Images/js-teacher/js-teacher-neutral.png",
+                angry: "./Images/js-teacher/js-teacher-angry.png",
+                surprised: "./Images/js-teacher/js-teacher-surprised.png",
+                distance: "./Images/js-teacher/js-teacher-distance.png",
+                stunned: "./Images/js-teacher/js-teacher-stunned.png"
             }
         },
         mainCharacter: {
@@ -203,7 +217,15 @@ var learnjs;
             pose: {
                 normal: "./Images/main-character/mc-normal.png",
             }
-        }
+        },
+        mcMom: {
+            name: '',
+            origin: learnjs.fs.ORIGIN.BOTTOMLEFT,
+            pose: {
+                happy: "./Images/mc-mom/mc-mom-happy.png",
+                angry: "./Images/mc-mom/mc-mom-angry.png"
+            }
+        },
     };
 })(learnjs || (learnjs = {}));
 var learnjs;
@@ -273,6 +295,18 @@ var learnjs;
         },
         insideClassroom: {
             name: "insideclassroom",
+            background: "./Images/rooms/vn-classroom.jpg"
+        },
+        homeFloor: {
+            name: "homefloor",
+            background: "./Images/rooms/vn-home.jpg"
+        },
+        homeRoom: {
+            name: "homeroom",
+            background: "./Images/rooms/room-mc.png"
+        },
+        heaven: {
+            name: "homeroom",
             background: "./Images/rooms/vn-classroom.jpg"
         },
     };

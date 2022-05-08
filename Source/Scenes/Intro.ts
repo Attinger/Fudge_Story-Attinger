@@ -1,17 +1,5 @@
 namespace learnjs {
   export async function Introduction(): fs.SceneReturn {
-
-    let slideIn: fs.AnimationDefinition = {
-      start: { translation: fs.positions.bottomright},
-      end: { translation: fs.positions.bottomleft},
-      duration: 1,
-      playmode: fs.ANIMATION_PLAYMODE.PLAYONCE
-    }
-
-    //let signalDelay: fs.Signal = fs.Progress.defineSignal([ () => {
-      //fs.Progress.delay(1);
-    //}]);
-
     let dialogues = {
       narrator: {
         t00: '08:30 - 2 Minuten vor dem Programmier Unterricht.',
@@ -32,11 +20,10 @@ namespace learnjs {
 
 
     getUserName();
-
     async function getUserName() {
       await fs.Speech.tell(null, "<p>Bevor es losgeht, am unterem rechtem Rand deines Bildschirms findest du einen Hilfe Button wo alle Tastaturbefehle zu finden sind:</p><p>Im Menü kannst du Speichern, ein Spielstand laden und das Intro überspringen</p><p>Wenn du mir jetzt noch verrätst wie du heißt geht es direkt los</p>", true, 'introduction-text');
       userData.Protagonist.name = await fs.Speech.getInput();
-      fs.Speech.hide();
+      await fs.Speech.hide();
       sequenzOne();
     }
 
@@ -50,7 +37,7 @@ namespace learnjs {
       await fs.update(1);
       await fs.Speech.tell(character.narrator, dialogues.narrator.t01);
       await fs.Location.show(locations.insideClassroom);
-      await fs.Character.animate(character.stupidProf, character.stupidProf.pose.normal, slideIn);
+      await fs.Character.animate(character.stupidProf, character.stupidProf.pose.normal, slideInAnimation());
       await fs.update(1);
       await fs.Speech.tell(character.stupidProf, dialogues.badProf.t00);
       await fs.Speech.tell(character.stupidProf, dialogues.badProf.t01);
@@ -64,9 +51,10 @@ namespace learnjs {
       await fs.Character.hideAll();
       await fs.update(1);
       await fs.Location.show(locations.classMatesQuestions);
-      await fs.Character.animate(character.mainCharacter, character.mainCharacter.pose.normal, slideIn);
-      await fs.update(1);
-      saySomethingOrNot();
+      await fs.Character.animate(character.mainCharacter, character.mainCharacter.pose.normal, slideInAnimation());
+      await fs.update(1).then(() => {
+        saySomethingOrNot();
+      });
     }
 
     async function saySomethingOrNot() {
@@ -90,8 +78,9 @@ namespace learnjs {
           fs.Speech.clear();
           fs.Speech.hide();
           fs.Character.hideAll();
-          goToNextScene();
-          await fs.update(1);
+          await fs.update(1).then(() => {
+            goToNextScene();
+          });
           break;
         case playerChoices.C0002:
           await fs.update(1);
@@ -105,8 +94,9 @@ namespace learnjs {
           fs.Speech.clear();
           fs.Speech.hide();
           fs.Character.hideAll();
-          goToNextScene();
-          await fs.update(1);
+          await fs.update(1).then(() => {
+            goToNextScene();
+          });
           break;
       };
     }

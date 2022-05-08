@@ -20,5 +20,17 @@ namespace learnjs {
           name: "insideclassroom",
           background: "./Images/rooms/vn-classroom.jpg"
         },
+        homeFloor: {
+          name: "homefloor",
+          background: "./Images/rooms/vn-home.jpg"
+        },
+        homeRoom: {
+          name: "homeroom",
+          background: "./Images/rooms/room-mc.png"
+        },
+        heaven: {
+          name: "homeroom",
+          background: "./Images/rooms/vn-classroom.jpg"
+        },
       };
 }

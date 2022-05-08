@@ -1,7 +1,7 @@
 namespace learnjs {
     export let character = {
         narrator: {
-          name: 'Narrator',
+          name: 'Erzähler',
         },
         stupidProf: {
           name: 'Prof. Dr. Harabashi Tadinpachi',
@@ -17,8 +17,11 @@ namespace learnjs {
           name: 'Dr JavaScript',
           origin: fs.ORIGIN.BOTTOMLEFT,
           pose: {
-            normal: "./Images/main-character/main-char-mid-scaled.png",
-            angry:  "./Images/main-character/main-char-mid-angry.png",
+            normal: "./Images/js-teacher/js-teacher-neutral.png",
+            angry:  "./Images/js-teacher/js-teacher-angry.png",
+            surprised: "./Images/js-teacher/js-teacher-surprised.png",
+            distance: "./Images/js-teacher/js-teacher-distance.png",
+            stunned: "./Images/js-teacher/js-teacher-stunned.png"
           }
         },
         mainCharacter: {
@@ -27,6 +30,14 @@ namespace learnjs {
           pose: {
             normal: "./Images/main-character/mc-normal.png",
           }
-        }
+        },
+        mcMom: {
+            name: '',
+            origin: fs.ORIGIN.BOTTOMLEFT,
+            pose: {
+              happy: "./Images/mc-mom/mc-mom-happy.png",
+              angry: "./Images/mc-mom/mc-mom-angry.png"
+            }
+        },
       }
 }
