@@ -81,7 +81,7 @@ namespace learnjs {
           await fs.update(1).then(() => {
             goToNextScene();
           });
-          break;
+        break;
         case playerChoices.C0002:
           await fs.update(1);
           await fs.Speech.tell(userData.Protagonist, dialogues.mainChar.t01);
@@ -97,7 +97,7 @@ namespace learnjs {
           await fs.update(1).then(() => {
             goToNextScene();
           });
-          break;
+        break;
       };
     }
 

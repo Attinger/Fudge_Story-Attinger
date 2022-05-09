@@ -32,11 +32,11 @@ namespace learnjs {
           }
         },
         mcMom: {
-            name: '',
+            name: 'Mom',
             origin: fs.ORIGIN.BOTTOMLEFT,
             pose: {
               happy: "./Images/mc-mom/mc-mom-happy.png",
-              angry: "./Images/mc-mom/mc-mom-angry.png"
+              angry: "./Images/mc-mom/mc-mom-angy.png"
             }
         },
       }

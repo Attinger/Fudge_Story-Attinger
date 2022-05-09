@@ -22,7 +22,7 @@ namespace learnjs {
         },
         homeFloor: {
           name: "homefloor",
-          background: "./Images/rooms/vn-home.jpg"
+          background: "./Images/rooms/vn-home.png"
         },
         homeRoom: {
           name: "homeroom",

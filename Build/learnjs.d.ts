@@ -34,6 +34,7 @@ declare namespace learnjs {
 declare namespace learnjs {
     function slideInAnimation(): fs.AnimationDefinition;
     function slideOutAnimation(): fs.AnimationDefinition;
+    function fromOutofCanvasToRight(): fs.AnimationDefinition;
 }
 declare namespace learnjs {
     let character: {

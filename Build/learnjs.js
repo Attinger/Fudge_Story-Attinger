@@ -55,7 +55,59 @@ var learnjs;
         await learnjs.fs.Character.animate(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.slideOutAnimation());
         await learnjs.fs.Speech.tell(learnjs.character.narrator, 'Etwas später');
         await learnjs.fs.Location.show(learnjs.locations.homeFloor);
+        await learnjs.fs.Character.show(learnjs.character.mcMom, learnjs.character.mcMom.pose.happy, learnjs.fs.positionPercent(0, 100));
+        await learnjs.fs.Speech.tell(learnjs.character.mcMom, `Hey mein Schatz! Wie war dein Tag <span class="color-red">${learnjs.userData.Protagonist.name}</span>? Wie war die Uni?`);
         await learnjs.fs.update(1);
+        await learnjs.fs.Character.animate(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.fromOutofCanvasToRight());
+        await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, 'Frag nicht.....');
+        await learnjs.fs.Speech.tell(learnjs.character.mcMom, 'Ach komm schon, als ob es so schlimm war?');
+        await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, 'Mama ich schaff die Uni nicht, Programmieren bricht mir das Genick... Niemand versteht es, keiner kann mir helfen');
+        await learnjs.fs.Character.hide(learnjs.character.mcMom);
+        await learnjs.fs.Character.show(learnjs.character.mcMom, learnjs.character.mcMom.pose.angry, learnjs.fs.positionPercent(0, 100));
+        await learnjs.fs.Speech.tell(learnjs.character.mcMom, 'Sollen wir das nun wirklich wieder ausdisktuieren? Du weißt genau, von nichts kommt nichts. Wir kommen von ganz unten, dein Vater und ich mussten hart für unseren Erfolg arbeiten');
+        await learnjs.fs.update(1).then(() => {
+            argueOrNot();
+        });
+        async function argueOrNot() {
+            let playerChoices = {
+                C0001: "Ausdiskutieren",
+                C0002: "Müssen wir nicht. Irgendwie schaff ich das schon"
+            };
+            let userInput = await learnjs.fs.Menu.getInput(playerChoices, "player--select");
+            switch (userInput) {
+                case playerChoices.C0001:
+                    await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, 'Du verstehst es nicht Mama, ich gebe alles aber unser Professor erklärt uns einfach nichts. Ich weiß nichts über das Thema.......');
+                    await learnjs.fs.Speech.tell(learnjs.character.mcMom, 'Stop! Für deinen Misserfolg ist niemand anderes verantwortlich als du selbst. Dein Professor kann auch nichts dafür das du nicht hart genug für deine Ziele arbeitest.');
+                    await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, 'Aber ich will doch garnicht programmieren');
+                    await learnjs.fs.Speech.tell(learnjs.character.mcMom, 'Es gibt Dinge im Leben da muss man durch, ganz egal wie irrelevant diese für dich wirken');
+                    await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, 'Niemand versteht mich');
+                    await learnjs.fs.Character.hide(learnjs.character.mcMom);
+                    await learnjs.fs.Character.show(learnjs.character.mcMom, learnjs.character.mcMom.pose.happy, learnjs.fs.positionPercent(0, 100));
+                    await learnjs.fs.Speech.tell(learnjs.character.mcMom, `Ach <span class="color-red">${learnjs.userData.Protagonist.name}</span>.. Du weißt genau wir glauben an dich, du schaffst das schon. Mach das nicht nur für dich sondern auch für die Familie`);
+                    await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, 'Ich geb mein bestes. Ich geh schlafen Mama, morgen ist ein neuer Tag');
+                    await learnjs.fs.Speech.tell(learnjs.character.mcMom, 'Gute Nacht');
+                    learnjs.fs.Speech.clear();
+                    learnjs.fs.Speech.hide();
+                    learnjs.fs.Character.hideAll();
+                    await learnjs.fs.update(1).then(() => {
+                        goToNextScene();
+                    });
+                    break;
+                case playerChoices.C0002:
+                    await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, 'Müssen wir nicht. Irgendwie schaff ich das schon. Ich geh jetzt schlafen und ab morgen lerne ich auf diese Prüfung.');
+                    await learnjs.fs.Speech.tell(learnjs.character.mcMom, 'Gute Nacht');
+                    learnjs.fs.Speech.clear();
+                    learnjs.fs.Speech.hide();
+                    learnjs.fs.Character.hideAll();
+                    await learnjs.fs.update(1).then(() => {
+                        goToNextScene();
+                    });
+                    break;
+            }
+        }
+        function goToNextScene() {
+            return Room();
+        }
     }
     learnjs.Home = Home;
 })(learnjs || (learnjs = {}));
@@ -183,6 +235,15 @@ var learnjs;
         };
     }
     learnjs.slideOutAnimation = slideOutAnimation;
+    function fromOutofCanvasToRight() {
+        return {
+            start: { translation: learnjs.fs.positionPercent(110, 100) },
+            end: { translation: learnjs.fs.positionPercent(70, 100) },
+            duration: 1,
+            playmode: learnjs.fs.ANIMATION_PLAYMODE.PLAYONCE
+        };
+    }
+    learnjs.fromOutofCanvasToRight = fromOutofCanvasToRight;
 })(learnjs || (learnjs = {}));
 var learnjs;
 (function (learnjs) {
@@ -219,11 +280,11 @@ var learnjs;
             }
         },
         mcMom: {
-            name: '',
+            name: 'Mom',
             origin: learnjs.fs.ORIGIN.BOTTOMLEFT,
             pose: {
                 happy: "./Images/mc-mom/mc-mom-happy.png",
-                angry: "./Images/mc-mom/mc-mom-angry.png"
+                angry: "./Images/mc-mom/mc-mom-angy.png"
             }
         },
     };
@@ -299,7 +360,7 @@ var learnjs;
         },
         homeFloor: {
             name: "homefloor",
-            background: "./Images/rooms/vn-home.jpg"
+            background: "./Images/rooms/vn-home.png"
         },
         homeRoom: {
             name: "homeroom",
