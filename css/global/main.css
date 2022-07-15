@@ -126,6 +126,14 @@ speech content {
   color:red;
 }
 
+.color-green {
+  color:green;
+}
+
+.color-grey {
+  color:grey;
+  font-size:15px;
+}
 .one-text {
   display:flex;
 }

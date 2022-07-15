@@ -101,6 +101,8 @@ namespace learnjs {
       };
     }
 
+    fs.Progress
+
     function goToNextScene() {
       return Home();
     }

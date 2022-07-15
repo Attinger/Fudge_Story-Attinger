@@ -19,7 +19,10 @@ namespace learnjs {
 
     let scenes: fs.Scenes = [
       //{ id: "intro", scene: Introduction, name: "Introduction" },
-      { id: "Home", scene: Home, name: "Home" },
+      //{ id: "Home", scene: Home, name: "Home" },
+      //{ id: "Room", scene: Room, name: "Room" },
+      //{ id: "Heaven", scene: Heaven, name: "Heaven" },
+      { id: "Topics", scene: Topics, name: "Topics" },
     ];
 
     // start the sequence

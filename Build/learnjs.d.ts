@@ -26,10 +26,31 @@ declare namespace learnjs {
     };
 }
 declare namespace learnjs {
+    function Challenge(): fs.SceneReturn;
+}
+declare namespace learnjs {
+    function Datatypes(): fs.SceneReturn;
+}
+declare namespace learnjs {
+    function Heaven(): fs.SceneReturn;
+}
+declare namespace learnjs {
     function Home(): fs.SceneReturn;
 }
 declare namespace learnjs {
     function Introduction(): fs.SceneReturn;
+}
+declare namespace learnjs {
+    function Operators(): fs.SceneReturn;
+}
+declare namespace learnjs {
+    function Room(): fs.SceneReturn;
+}
+declare namespace learnjs {
+    function Topics(): fs.SceneReturn;
+}
+declare namespace learnjs {
+    function Variables(): fs.SceneReturn;
 }
 declare namespace learnjs {
     function slideInAnimation(): fs.AnimationDefinition;
@@ -121,6 +142,8 @@ declare namespace learnjs {
     let userData: {
         Protagonist: {
             name: string;
+            variableTest: string;
+            variablesDone: boolean;
         };
     };
 }

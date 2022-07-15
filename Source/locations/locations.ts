@@ -29,8 +29,8 @@ namespace learnjs {
           background: "./Images/rooms/room-mc.png"
         },
         heaven: {
-          name: "homeroom",
-          background: "./Images/rooms/vn-classroom.jpg"
+          name: "heaven",
+          background: "./Images/backgrounds/vn-teach-bg.jpg"
         },
       };
 }
