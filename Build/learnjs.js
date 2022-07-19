@@ -6,14 +6,15 @@ var learnjs;
     window.addEventListener("load", start);
     function start(_event) {
         const uiElement = document.querySelector("[type=interface]");
-        learnjs.userData = learnjs.fs.Progress.setData(learnjs.userData, uiElement);
+        learnjs.fs.Progress.setData(learnjs.dataForSave, uiElement);
         let scenes = [
             //{ id: "start", scene: Startscreen, name: "Startscreen" },
             //{ id: "intro", scene: Introduction, name: "Introduction" },
             //{ id: "Home", scene: Home, name: "Home" },
             //{ id: "Room", scene: Room, name: "Room" },
             //{ id: "Heaven", scene: Heaven, name: "Heaven" },
-            { id: "Topics", scene: learnjs.Topics, name: "Topics" },
+            //{ id: "Topics", scene: Topics, name: "Topics" },
+            { id: "roomSecond", scene: learnjs.RoomSecond, name: "RoomSecond" },
         ];
         // start the sequence
         learnjs.fs.Progress.go(scenes);
@@ -46,6 +47,28 @@ var learnjs;
 })(learnjs || (learnjs = {}));
 var learnjs;
 (function (learnjs) {
+    async function BadEnd() {
+        await learnjs.fs.Speech.tell(learnjs.character.narrator, `10 Jahre später....`);
+        await learnjs.fs.Location.show(learnjs.locations.homeFloor);
+        await learnjs.fs.Character.show(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.fs.positionPercent(0, 100));
+        learnjs.fs.update(1);
+        await learnjs.fs.Speech.tell(learnjs.character.narrator, `<span class="color-red">${learnjs.userData.Protagonist.name}</span> wurde von zuhause rausgeworfen und hat alles in Ihrem Leben verloren. Sie ist arbeitslos und lebt auf der Straße. Es gibt kaum noch Hoffnung. Hätte <span class="color-red">${learnjs.userData.Protagonist.name}</span> doch damals mehr Zeit fürs Lernen investiert.`);
+    }
+    learnjs.BadEnd = BadEnd;
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
+    async function BestEnd() {
+        await learnjs.fs.Speech.tell(learnjs.character.narrator, `10 Jahre später....`);
+        await learnjs.fs.Location.show(learnjs.locations.homeFloor);
+        await learnjs.fs.Character.show(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.fs.positionPercent(0, 100));
+        learnjs.fs.update(1);
+        await learnjs.fs.Speech.tell(learnjs.character.narrator, `<span class="color-red">${learnjs.userData.Protagonist.name}</span> ist mittlerweile Software Entwicklerin bei ,,FIRMA'' und lebt ein Traumleben. Sie hat ein sehr gutes Verhältnis mit Ihrer Familie und hat finanziell keine Sorgen mehr.`);
+    }
+    learnjs.BestEnd = BestEnd;
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
     async function Challenge() {
         learnjs.fs.Speech.clear();
         learnjs.fs.Speech.hide();
@@ -60,6 +83,8 @@ var learnjs;
         await learnjs.fs.Speech.tell(learnjs.character.stupidProf, 'Guten Morgen. Alles klar - seid ihr bereit für euren Untergang? Hahahaha gut! Ihr kennt die Regeln, wer Spickzettel nutzt fliegt von der Uni also hütet euch und beantwortet die Fragen. Wer in meinem Unterricht aufgepasst hat sollte keine Probleme haben. Viel Erfolg.');
         learnjs.fs.Speech.clear();
         learnjs.fs.Speech.hide();
+        await learnjs.fs.Character.hideAll();
+        await learnjs.fs.Character.animate(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.slideInAnimation());
         await learnjs.fs.update(1);
         const meterBarVal = document.getElementById('progressMeter');
         const inputBarVal = document.getElementById('progressChallenge');
@@ -68,43 +93,43 @@ var learnjs;
         learnjs.fs.Speech.hide();
         const qAndA = [
             {
-                q: `<strong>Frage eins: Beispielfrage 1 ist richtig`,
+                q: `<strong>Frage eins:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
                 a: "richtig",
             },
             {
-                q: `<strong>Frage zwei: Beispielfrge 2 ist falsch.`,
+                q: `<strong>Frage zwei:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
                 a: "falsch",
             },
             {
-                q: `<strong>Frage zwei: Beispielfrge 3 ist falsch.`,
+                q: `<strong>Frage drei:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
                 a: "falsch",
             },
             {
-                q: `<strong>Frage zwei: Beispielfrge 4 ist falsch.`,
+                q: `<strong>Frage vier:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
                 a: "falsch",
             },
             {
-                q: `<strong>Frage zwei: Beispielfrge 5 ist falsch.`,
+                q: `<strong>Frage fünf:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
                 a: "falsch",
             },
             {
-                q: `<strong>Frage zwei: Beispielfrge 6 ist falsch.`,
+                q: `<strong>Frage sechs:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
                 a: "falsch",
             },
             {
-                q: `<strong>Frage zwei: Beispielfrge 7 ist falsch.`,
+                q: `<strong>Frage sieben:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
                 a: "falsch",
             },
             {
-                q: `<strong>Frage zwei: Beispielfrge 8 ist falsch.`,
+                q: `<strong>Frage acht:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
                 a: "falsch",
             },
             {
-                q: `<strong>Frage zwei: Beispielfrge 9 ist falsch.`,
+                q: `<strong>Frage neun:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
                 a: "falsch",
             },
             {
-                q: `<strong>Frage zwei: Beispielfrge 10 ist falsch.`,
+                q: `<strong>Frage zehn:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
                 a: "falsch",
             }
         ];
@@ -137,7 +162,18 @@ var learnjs;
             }
         } while (meterBarVal.value != "10");
         learnjs.fs.Text.close();
-        learnjs.fs.Speech.tell(learnjs.character.narrator, `Du hast ${learnjs.userData.Protagonist.pointsCollected} von 10 Fragen richtig beantwortet.`);
+        meterBar.classList.remove('meterbar-visible');
+        await learnjs.fs.Character.hideAll();
+        await learnjs.fs.Character.animate(learnjs.character.stupidProf, learnjs.character.stupidProf.pose.normal, learnjs.slideInAnimation());
+        await learnjs.fs.Speech.tell(learnjs.character.stupidProf, 'Meine Damen und Herren, Füller aus der Hand. Abgabe!!! JETZT!!!. Danke. Sie kriegen die Ergebnisse binnen einer Woche auf Ihre E-Mail geschickt. Keine Sorge, wer hier gescheitert ist wird so oder so auf der Straße landen.');
+        await learnjs.fs.Character.hideAll();
+        await learnjs.fs.Location.show(learnjs.locations.outSideSchool);
+        await learnjs.fs.Character.show(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.fs.positionPercent(0, 100));
+        await learnjs.fs.update(1);
+        await learnjs.fs.Speech.tell(learnjs.character.narrator, `Die Prüfung ist zuende und <span class="color-red">${learnjs.userData.Protagonist.name}</span> ist auf dem Weg nachhause.`);
+        await learnjs.fs.Character.animate(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.slideOutAnimation());
+        return learnjs.homeSecond();
+        //fs.Speech.tell(character.narrator, `Du hast ${userData.Protagonist.pointsCollected} von 10 Fragen richtig beantwortet.`);
     }
     learnjs.Challenge = Challenge;
 })(learnjs || (learnjs = {}));
@@ -195,6 +231,17 @@ var learnjs;
         await learnjs.fs.Speech.tell(learnjs.character.goodProf, 'Datentyp Null<br> Ist sehr ähnliche zu Undefined, während Undefined wie eben erwähnt aussagt das ein Wert noch nicht gesetzt wurde sagt Null jedoch aus das der Wert explizit geleert also auf sozusagen Nichts festgelegt wurde.', true, 'editor--speech');
     }
     learnjs.Datatypes = Datatypes;
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
+    async function HappyEnd() {
+        await learnjs.fs.Speech.tell(learnjs.character.narrator, `10 Jahre später....`);
+        await learnjs.fs.Location.show(learnjs.locations.homeFloor);
+        await learnjs.fs.Character.show(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.fs.positionPercent(0, 100));
+        learnjs.fs.update(1);
+        await learnjs.fs.Speech.tell(learnjs.character.narrator, `<span class="color-red">${learnjs.userData.Protagonist.name}</span> hat mit der Programmierung zwar nichtsmehr am Hut. Lebt aber ein erfülltes und glückliches Leben. Sie versteht sich mit Ihrer Familie gut und Sie ist überaus glücklich.`);
+    }
+    learnjs.HappyEnd = HappyEnd;
 })(learnjs || (learnjs = {}));
 var learnjs;
 (function (learnjs) {
@@ -352,6 +399,7 @@ var learnjs;
             await learnjs.fs.Sound.play(learnjs.sound.introMusic, 0.15, true);
             await learnjs.fs.Speech.tell(null, `<p>Bevor es losgeht,mit dem Tastenkürzel <span class="color-red"> ESC </span> öffnest und schließt du das Menü. Dort findest du alle wichtigen Informationen. Wenn du keine weiteren Fragen hast und mir verrätst wie Du heißt beginnt die Visual Novel direkt.</p>`, true, 'introduction-text');
             learnjs.userData.Protagonist.name = await learnjs.fs.Speech.getInput();
+            learnjs.dataForSave.nameProtagonist = learnjs.userData.Protagonist.name;
             await learnjs.fs.Speech.hide();
             sequenzOne();
         }
@@ -481,6 +529,31 @@ var learnjs;
         ;
     }
     learnjs.Room = Room;
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
+    async function RoomSecond() {
+        await learnjs.fs.Location.show(learnjs.locations.homeRoom);
+        await learnjs.fs.Character.show(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.fs.positionPercent(0, 100));
+        await learnjs.fs.Speech.tell(learnjs.character.narrator, `Mittlerweile ist eine Woche vergangen und <span class="color-red">${learnjs.userData.Protagonist.name}</span> prüft Ihre Emails.`);
+        let finalResult = learnjs.userData.Protagonist.pointsCollected;
+        checkResult(finalResult);
+        async function checkResult(result) {
+            if (result < 5) {
+                await learnjs.fs.Speech.tell(learnjs.character.narrator, `Sehr geehrte Frau/Herr ${learnjs.userData.Protagonist.name}, in Ihrer Programmier - Prüfung im Sommersemester haben Sie <span class="color-red">${learnjs.userData.Protagonist.pointsCollected}</span> von 10 Fragen richtig beantwortet. Sie haben diese Prüfung somit nicht bestanden! Das bedeutet Sie haben somit das Anrecht auf unser Studium leider verloren. Bei Fragen stehen wir Ihnen jederzeit zur Verfügung`);
+                return learnjs.BadEnd();
+            }
+            if (result > 5 && result < 10) {
+                await learnjs.fs.Speech.tell(learnjs.character.narrator, `Sehr geehrte Frau/Herr ${learnjs.userData.Protagonist.name}, in Ihrer Programmier - Prüfung im Sommersemester haben Sie <span class="color-green">${learnjs.userData.Protagonist.pointsCollected}</span> von 10 Fragen richtig beantwortet. Sie haben diese Prüfung somit bestanden. Herzlichen Glückwunsch.`);
+                return learnjs.HappyEnd();
+            }
+            if (result = 10) {
+                await learnjs.fs.Speech.tell(learnjs.character.narrator, `Sehr geehrte Frau/Herr ${learnjs.userData.Protagonist.name}, in Ihrer Programmier - Prüfung im Sommersemester haben Sie <span class="color-green">${learnjs.userData.Protagonist.pointsCollected}</span> von 10 Fragen richtig beantwortet. Sie haben diese Prüfung somit mit der best möglichen Note bestanden. Herzlichen Glückwunsch.`);
+                return learnjs.BestEnd();
+            }
+        }
+    }
+    learnjs.RoomSecond = RoomSecond;
 })(learnjs || (learnjs = {}));
 var learnjs;
 (function (learnjs) {
@@ -627,6 +700,63 @@ var learnjs;
         }
     }
     learnjs.Variables = Variables;
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
+    async function homeSecond() {
+        await learnjs.fs.Location.show(learnjs.locations.homeFloor);
+        await learnjs.fs.Character.show(learnjs.character.mcMom, learnjs.character.mcMom.pose.happy, learnjs.fs.positionPercent(0, 100));
+        await learnjs.fs.Speech.tell(learnjs.character.mcMom, `Hey mein Schatz! Wie war deine Prüfung <span class="color-red">${learnjs.userData.Protagonist.name}</span>?????`);
+        await learnjs.fs.update(1);
+        await learnjs.fs.Character.animate(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.fromOutofCanvasToRight());
+        await learnjs.fs.update(1).then(() => {
+            answerQuestion();
+        });
+        async function answerQuestion() {
+            let playerChoices = {
+                C0001: "Sehr gut! Es lief Prima!",
+                C0002: "Ganz okay",
+                C0003: "Ohje. Ich glaube die habe ich nicht bestanden",
+            };
+            let userInput = await learnjs.fs.Menu.getInput(playerChoices, "player--select");
+            switch (userInput) {
+                case playerChoices.C0001:
+                    await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, 'Mum!! Es lief soooo gut!! Ich hab einfach alles verstanden.');
+                    await learnjs.fs.Speech.tell(learnjs.character.mcMom, 'Okay. Dann sind wir mal auf die Ergebnisse gespannt');
+                    await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, 'Sie kommen in einer Woche :) Hab dich lieb Mum!');
+                    learnjs.fs.Speech.clear();
+                    learnjs.fs.Speech.hide();
+                    learnjs.fs.Character.hideAll();
+                    await learnjs.fs.update(1).then(() => {
+                        goToNextScene();
+                    });
+                    break;
+                case playerChoices.C0002:
+                    await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, 'Mhhmm.. Sie lief ganz okay glaube ich. Müsste es bestanden haben');
+                    await learnjs.fs.Speech.tell(learnjs.character.mcMom, 'Okay. Dann sind wir mal auf die Ergebnisse gespannt');
+                    learnjs.fs.Speech.clear();
+                    learnjs.fs.Speech.hide();
+                    learnjs.fs.Character.hideAll();
+                    await learnjs.fs.update(1).then(() => {
+                        goToNextScene();
+                    });
+                case playerChoices.C0003:
+                    await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, 'Wie erwartet!! Ich hab nichts verstanden');
+                    await learnjs.fs.Speech.tell(learnjs.character.mcMom, 'Wenn du diese Prüfung nicht bestanden hast, werf ich dich raus!!!!!!');
+                    learnjs.fs.Speech.clear();
+                    learnjs.fs.Speech.hide();
+                    learnjs.fs.Character.hideAll();
+                    await learnjs.fs.update(1).then(() => {
+                        goToNextScene();
+                    });
+                    break;
+            }
+        }
+        function goToNextScene() {
+            return learnjs.RoomSecond();
+        }
+    }
+    learnjs.homeSecond = homeSecond;
 })(learnjs || (learnjs = {}));
 var learnjs;
 (function (learnjs) {
@@ -843,7 +973,7 @@ var learnjs;
             name: 'Default',
             variableTest: '',
             variablesDone: false,
-            pointsCollected: 0,
+            pointsCollected: 1,
         },
     };
     learnjs.dataForSave = {

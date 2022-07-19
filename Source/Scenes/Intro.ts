@@ -35,6 +35,7 @@ namespace learnjs {
       await fs.Sound.play(sound.introMusic, 0.15, true);
       await fs.Speech.tell(null, `<p>Bevor es losgeht,mit dem Tastenkürzel <span class="color-red"> ESC </span> öffnest und schließt du das Menü. Dort findest du alle wichtigen Informationen. Wenn du keine weiteren Fragen hast und mir verrätst wie Du heißt beginnt die Visual Novel direkt.</p>`, true, 'introduction-text');
       userData.Protagonist.name = await fs.Speech.getInput();
+      dataForSave.nameProtagonist = userData.Protagonist.name;
       await fs.Speech.hide();
       sequenzOne();
     }

@@ -4,7 +4,7 @@ namespace learnjs {
           name: 'Default',
           variableTest: '',
           variablesDone: false,
-          pointsCollected: 0,
+          pointsCollected: 1,
         },
       };
 

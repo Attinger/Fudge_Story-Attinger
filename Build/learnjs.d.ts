@@ -26,6 +26,12 @@ declare namespace learnjs {
     };
 }
 declare namespace learnjs {
+    function BadEnd(): fs.SceneReturn;
+}
+declare namespace learnjs {
+    function BestEnd(): fs.SceneReturn;
+}
+declare namespace learnjs {
     function Challenge(): fs.SceneReturn;
 }
 declare namespace learnjs {
@@ -33,6 +39,9 @@ declare namespace learnjs {
 }
 declare namespace learnjs {
     function Datatypes(): fs.SceneReturn;
+}
+declare namespace learnjs {
+    function HappyEnd(): fs.SceneReturn;
 }
 declare namespace learnjs {
     function Heaven(): fs.SceneReturn;
@@ -50,6 +59,9 @@ declare namespace learnjs {
     function Room(): fs.SceneReturn;
 }
 declare namespace learnjs {
+    function RoomSecond(): fs.SceneReturn;
+}
+declare namespace learnjs {
     function Startscreen(): fs.SceneReturn;
 }
 declare namespace learnjs {
@@ -57,6 +69,9 @@ declare namespace learnjs {
 }
 declare namespace learnjs {
     function Variables(): fs.SceneReturn;
+}
+declare namespace learnjs {
+    function homeSecond(): fs.SceneReturn;
 }
 declare namespace learnjs {
     function slideInAnimation(): fs.AnimationDefinition;

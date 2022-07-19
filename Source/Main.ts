@@ -6,7 +6,7 @@ namespace learnjs {
   window.addEventListener("load", start);
   function start(_event: Event): void {
     const uiElement: HTMLElement = document.querySelector("[type=interface]");
-    userData = fs.Progress.setData(userData, uiElement);
+    fs.Progress.setData(dataForSave, uiElement);
     
     let scenes: fs.Scenes = [
       //{ id: "start", scene: Startscreen, name: "Startscreen" },
@@ -14,7 +14,8 @@ namespace learnjs {
       //{ id: "Home", scene: Home, name: "Home" },
       //{ id: "Room", scene: Room, name: "Room" },
       //{ id: "Heaven", scene: Heaven, name: "Heaven" },
-      { id: "Topics", scene: Topics, name: "Topics" },
+      //{ id: "Topics", scene: Topics, name: "Topics" },
+      {id: "roomSecond", scene: RoomSecond, name: "RoomSecond"},
     ];
 
     // start the sequence
