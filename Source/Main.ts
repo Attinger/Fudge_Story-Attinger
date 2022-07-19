@@ -14,8 +14,8 @@ namespace learnjs {
       //{ id: "Home", scene: Home, name: "Home" },
       //{ id: "Room", scene: Room, name: "Room" },
       //{ id: "Heaven", scene: Heaven, name: "Heaven" },
-      //{ id: "Topics", scene: Topics, name: "Topics" },
-      {id: "roomSecond", scene: RoomSecond, name: "RoomSecond"},
+      { id: "Topics", scene: Topics, name: "Topics" },
+      //{id: "roomSecond", scene: RoomSecond, name: "RoomSecond"},
     ];
 
     // start the sequence
