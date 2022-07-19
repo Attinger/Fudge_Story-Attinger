@@ -41,6 +41,9 @@ declare namespace learnjs {
     function Datatypes(): fs.SceneReturn;
 }
 declare namespace learnjs {
+    function Endscreen(): fs.SceneReturn;
+}
+declare namespace learnjs {
     function HappyEnd(): fs.SceneReturn;
 }
 declare namespace learnjs {
@@ -154,6 +157,14 @@ declare namespace learnjs {
             background: string;
         };
         heaven: {
+            name: string;
+            background: string;
+        };
+        poorcity: {
+            name: string;
+            background: string;
+        };
+        office: {
             name: string;
             background: string;
         };

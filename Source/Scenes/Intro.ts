@@ -33,7 +33,7 @@ namespace learnjs {
     getUserName();
     async function getUserName() {
       await fs.Sound.play(sound.introMusic, 0.15, true);
-      await fs.Speech.tell(null, `<p>Bevor es losgeht,mit dem Tastenkürzel <span class="color-red"> ESC </span> öffnest und schließt du das Menü. Dort findest du alle wichtigen Informationen. Wenn du keine weiteren Fragen hast und mir verrätst wie Du heißt beginnt die Visual Novel direkt.</p>`, true, 'introduction-text');
+      await fs.Speech.tell(null, `<p>Bevor es losgeht,mit dem Tastenkürzel <span class="color-red"> M </span> öffnest und schließt du das Menü. Dort findest du alle wichtigen Informationen. Wenn du keine weiteren Fragen hast und mir verrätst wie Du heißt beginnt die Visual Novel direkt.<br> PS: Der Hauptcharakter der Visual Novel ist weiblich - sei also kreativ bei deiner Namensgebung :p</p>`, true, 'introduction-text');
       userData.Protagonist.name = await fs.Speech.getInput();
       dataForSave.nameProtagonist = userData.Protagonist.name;
       await fs.Speech.hide();
@@ -76,10 +76,11 @@ namespace learnjs {
         C0002: "Nichts sagen"
       };
 
-      let userInput = await fs.Menu.getInput(playerChoices, "player--select");
+      let userInput = await fs.Menu.getInput(playerChoices, "startscreen--select");
 
       switch (userInput) {
         case playerChoices.C0001:
+          await closeScreen();
           await fs.update(1);
           await fs.Speech.tell(userData.Protagonist, dialogues.mainChar.t00);
           await fs.update(1);
@@ -96,6 +97,7 @@ namespace learnjs {
           });
         break;
         case playerChoices.C0002:
+          await closeScreen();
           await fs.update(1);
           await fs.Speech.tell(userData.Protagonist, dialogues.mainChar.t01);
           await fs.update(1);
@@ -112,6 +114,12 @@ namespace learnjs {
           });
         break;
       };
+    }
+    
+    async function closeScreen() {
+      let startScreen = document.querySelector('.startscreen--select');
+      startScreen.classList.remove('startscreen--select');
+      return;
     }
 
     function goToNextScene() {

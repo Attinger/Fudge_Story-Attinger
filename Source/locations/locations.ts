@@ -32,5 +32,13 @@ namespace learnjs {
           name: "heaven",
           background: "./Images/backgrounds/vn-teach-bg.jpg"
         },
+        poorcity: {
+          name: "poortcity",
+          background: "./Images/rooms/poor-city.jpg"
+        },
+        office: {
+          name: "office",
+          background: "./Images/rooms/office.jpg"
+        },
       };
 }

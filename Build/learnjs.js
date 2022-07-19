@@ -8,12 +8,12 @@ var learnjs;
         const uiElement = document.querySelector("[type=interface]");
         learnjs.fs.Progress.setData(learnjs.dataForSave, uiElement);
         let scenes = [
-            //{ id: "start", scene: Startscreen, name: "Startscreen" },
+            { id: "start", scene: learnjs.Startscreen, name: "Startscreen" },
             //{ id: "intro", scene: Introduction, name: "Introduction" },
             //{ id: "Home", scene: Home, name: "Home" },
             //{ id: "Room", scene: Room, name: "Room" },
             //{ id: "Heaven", scene: Heaven, name: "Heaven" },
-            { id: "Topics", scene: learnjs.Topics, name: "Topics" },
+            //{ id: "Topics", scene: Topics, name: "Topics" },
             //{id: "roomSecond", scene: RoomSecond, name: "RoomSecond"},
         ];
         // start the sequence
@@ -49,10 +49,13 @@ var learnjs;
 (function (learnjs) {
     async function BadEnd() {
         await learnjs.fs.Speech.tell(learnjs.character.narrator, `10 Jahre später....`);
-        await learnjs.fs.Location.show(learnjs.locations.homeFloor);
+        await learnjs.fs.Location.show(learnjs.locations.poorcity);
         await learnjs.fs.Character.show(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.fs.positionPercent(0, 100));
         learnjs.fs.update(1);
         await learnjs.fs.Speech.tell(learnjs.character.narrator, `<span class="color-red">${learnjs.userData.Protagonist.name}</span> wurde von zuhause rausgeworfen und hat alles in Ihrem Leben verloren. Sie ist arbeitslos und lebt auf der Straße. Es gibt kaum noch Hoffnung. Hätte <span class="color-red">${learnjs.userData.Protagonist.name}</span> doch damals mehr Zeit fürs Lernen investiert.`);
+        learnjs.fs.Speech.hide();
+        learnjs.fs.Character.hideAll();
+        return learnjs.Endscreen();
     }
     learnjs.BadEnd = BadEnd;
 })(learnjs || (learnjs = {}));
@@ -60,10 +63,15 @@ var learnjs;
 (function (learnjs) {
     async function BestEnd() {
         await learnjs.fs.Speech.tell(learnjs.character.narrator, `10 Jahre später....`);
-        await learnjs.fs.Location.show(learnjs.locations.homeFloor);
+        await learnjs.fs.Location.show(learnjs.locations.office);
         await learnjs.fs.Character.show(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.fs.positionPercent(0, 100));
         learnjs.fs.update(1);
         await learnjs.fs.Speech.tell(learnjs.character.narrator, `<span class="color-red">${learnjs.userData.Protagonist.name}</span> ist mittlerweile Software Entwicklerin bei ,,FIRMA'' und lebt ein Traumleben. Sie hat ein sehr gutes Verhältnis mit Ihrer Familie und hat finanziell keine Sorgen mehr.`);
+        learnjs.fs.Speech.hide();
+        learnjs.fs.Character.hideAll();
+        await learnjs.fs.Location.show(learnjs.locations.heaven);
+        learnjs.fs.update(1);
+        return learnjs.Endscreen();
     }
     learnjs.BestEnd = BestEnd;
 })(learnjs || (learnjs = {}));
@@ -234,6 +242,53 @@ var learnjs;
 })(learnjs || (learnjs = {}));
 var learnjs;
 (function (learnjs) {
+    async function Endscreen() {
+        let playerChoices = {
+            C0001: "Play again",
+            C0002: "Credits"
+        };
+        learnjs.fs.Sound.play(learnjs.sound.menuMusic, 0.15, true);
+        chooseTopic();
+        async function chooseTopic() {
+            let userInput = await learnjs.fs.Menu.getInput(playerChoices, "startscreen--select");
+            switch (userInput) {
+                case playerChoices.C0001:
+                    await closeScreen();
+                    return learnjs.Introduction();
+                    break;
+                case playerChoices.C0002:
+                    await closeScreen();
+                    return learnjs.Credits();
+                    break;
+            }
+            ;
+        }
+        async function closeScreen() {
+            learnjs.fs.Sound.fade(learnjs.sound.menuMusic, 0, 0);
+            await learnjs.fs.Sound.play(learnjs.sound.menuOption, 0.4, false);
+            let startScreen = document.querySelector('.startscreen--select');
+            startScreen.classList.remove('startscreen--select');
+            return;
+        }
+        const allButtons = document.querySelectorAll('button');
+        let number = 0;
+        allButtons.forEach(button => {
+            button.classList.add(`startscreen-button-${number}`);
+            let buttonClass = document.querySelector(`.startscreen-button-${number}`);
+            buttonClass.addEventListener('mouseover', test);
+            buttonClass.addEventListener('click', playSound);
+            number++;
+        });
+        function test() {
+            learnjs.fs.Sound.play(learnjs.sound.menuClick, 0.15, false);
+        }
+        function playSound() {
+        }
+    }
+    learnjs.Endscreen = Endscreen;
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
     async function HappyEnd() {
         await learnjs.fs.Speech.tell(learnjs.character.narrator, `10 Jahre später....`);
         await learnjs.fs.Location.show(learnjs.locations.homeFloor);
@@ -397,7 +452,7 @@ var learnjs;
         getUserName();
         async function getUserName() {
             await learnjs.fs.Sound.play(learnjs.sound.introMusic, 0.15, true);
-            await learnjs.fs.Speech.tell(null, `<p>Bevor es losgeht,mit dem Tastenkürzel <span class="color-red"> ESC </span> öffnest und schließt du das Menü. Dort findest du alle wichtigen Informationen. Wenn du keine weiteren Fragen hast und mir verrätst wie Du heißt beginnt die Visual Novel direkt.</p>`, true, 'introduction-text');
+            await learnjs.fs.Speech.tell(null, `<p>Bevor es losgeht,mit dem Tastenkürzel <span class="color-red"> M </span> öffnest und schließt du das Menü. Dort findest du alle wichtigen Informationen. Wenn du keine weiteren Fragen hast und mir verrätst wie Du heißt beginnt die Visual Novel direkt.<br> PS: Der Hauptcharakter der Visual Novel ist weiblich - sei also kreativ bei deiner Namensgebung :p</p>`, true, 'introduction-text');
             learnjs.userData.Protagonist.name = await learnjs.fs.Speech.getInput();
             learnjs.dataForSave.nameProtagonist = learnjs.userData.Protagonist.name;
             await learnjs.fs.Speech.hide();
@@ -437,9 +492,10 @@ var learnjs;
                 C0001: "Sagen das niemand was verstanden hat",
                 C0002: "Nichts sagen"
             };
-            let userInput = await learnjs.fs.Menu.getInput(playerChoices, "player--select");
+            let userInput = await learnjs.fs.Menu.getInput(playerChoices, "startscreen--select");
             switch (userInput) {
                 case playerChoices.C0001:
+                    await closeScreen();
                     await learnjs.fs.update(1);
                     await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, dialogues.mainChar.t00);
                     await learnjs.fs.update(1);
@@ -456,6 +512,7 @@ var learnjs;
                     });
                     break;
                 case playerChoices.C0002:
+                    await closeScreen();
                     await learnjs.fs.update(1);
                     await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, dialogues.mainChar.t01);
                     await learnjs.fs.update(1);
@@ -473,6 +530,11 @@ var learnjs;
                     break;
             }
             ;
+        }
+        async function closeScreen() {
+            let startScreen = document.querySelector('.startscreen--select');
+            startScreen.classList.remove('startscreen--select');
+            return;
         }
         function goToNextScene() {
             return learnjs.Home();
@@ -974,6 +1036,14 @@ var learnjs;
             name: "heaven",
             background: "./Images/backgrounds/vn-teach-bg.jpg"
         },
+        poorcity: {
+            name: "poortcity",
+            background: "./Images/rooms/poor-city.jpg"
+        },
+        office: {
+            name: "office",
+            background: "./Images/rooms/office.jpg"
+        },
     };
 })(learnjs || (learnjs = {}));
 var learnjs;
@@ -996,7 +1066,7 @@ var learnjs;
             name: 'Default',
             variableTest: '',
             variablesDone: false,
-            pointsCollected: 1,
+            pointsCollected: 10,
         },
     };
     learnjs.dataForSave = {
