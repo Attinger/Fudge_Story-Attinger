@@ -11,6 +11,11 @@ html, body {
   background-size:cover;
   background-repeat: no-repeat;
   position: relative;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+button {
+  font-family: 'Courier New', Courier, monospace !important;
 }
 
 .rainbow {
@@ -91,35 +96,58 @@ speech content {
   color: rgb(218, 255, 55);
 }
 
-.help {
+.ingame--menue {
+  z-index:999999 !important;
+  bottom:0;
+}
+
+.skip {
+  display:none;
   position: absolute;
   bottom: 15px;
-  right:3px;
-  width:50px;
-  height:50px;
+  right:15px;
   color:black;
   background-color:white;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  border-radius:50%;
   cursor: pointer;
   z-index: 99999999999;
   transition:all 0.4s;
 }
 
-.help:hover {
+.visible {
+  display:block !important;
+  animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-15px);
+  }
+}
+@-webkit-keyframes bounce {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-15px);
+  }
+}
+
+.skip:hover {
   transform: scale(1.2);
   background-color:grey;
 }
 
-.help-icon {
+.skip-button {
   color:black;
-  background-image: url('../../Images/question-solid.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  width:25px;
-  height:25px;
+  font-size:15px;
+  padding:0 15px;
+}
+
+.skip-button:hover {
+  color:white;
 }
 
 .color-red {
@@ -136,4 +164,48 @@ speech content {
 }
 .one-text {
   display:flex;
+}
+
+
+/***** METER BAR *****/
+.meterbar {
+  display:none;
+}
+
+meter::-webkit-meter-bar {
+  background-color: #ececec;
+}
+
+meter[id="progressMeter"] {
+  position: absolute;
+  transform:rotate(-90deg);
+  bottom: 50%;
+  left: -14%;
+  width: 35%;
+  height: 10%;
+}
+
+meter[id="progressMeter"]::-webkit-meter-optimum-value {
+  background-color: green;
+}
+
+input[id="progressChallenge"] {
+  text-align: center;
+  color: rgb(255, 248, 253);
+  position: absolute;
+  left: 1.2%;
+  bottom: 19.5%;
+  width: 4%;
+}
+
+.meterbar-visible {
+  display:block;
+}
+
+.flip {
+  margin-top:125px;
+}
+
+.flip-question {
+  margin-top:225px;
 }

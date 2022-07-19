@@ -7,12 +7,8 @@ var learnjs;
     function start(_event) {
         const uiElement = document.querySelector("[type=interface]");
         learnjs.userData = learnjs.fs.Progress.setData(learnjs.userData, uiElement);
-        const helpButton = document.querySelector('.help');
-        helpButton.addEventListener('click', helpOptions);
-        async function helpOptions() {
-            learnjs.fs.Text.print("<p>Tastaturbelegung:</p> <p>Menü aufrufen: ESC</p>");
-        }
         let scenes = [
+            //{ id: "start", scene: Startscreen, name: "Startscreen" },
             //{ id: "intro", scene: Introduction, name: "Introduction" },
             //{ id: "Home", scene: Home, name: "Home" },
             //{ id: "Room", scene: Room, name: "Room" },
@@ -51,9 +47,139 @@ var learnjs;
 var learnjs;
 (function (learnjs) {
     async function Challenge() {
-        console.log('prüfung');
+        learnjs.fs.Speech.clear();
+        learnjs.fs.Speech.hide();
+        learnjs.fs.Character.hideAll();
+        await learnjs.fs.Location.show(learnjs.locations.outSideSchool);
+        //await fs.update(transitions.long.duration, transitions.long.alpha, transitions.long.edge);
+        await learnjs.fs.update(1);
+        await learnjs.fs.Speech.tell(learnjs.character.narrator, '8:30 Uhr - Tag der Programmier Prüfung');
+        await learnjs.fs.update(1);
+        await learnjs.fs.Location.show(learnjs.locations.insideClassroom);
+        await learnjs.fs.Character.animate(learnjs.character.stupidProf, learnjs.character.stupidProf.pose.normal, learnjs.slideInAnimation());
+        await learnjs.fs.Speech.tell(learnjs.character.stupidProf, 'Guten Morgen. Alles klar - seid ihr bereit für euren Untergang? Hahahaha gut! Ihr kennt die Regeln, wer Spickzettel nutzt fliegt von der Uni also hütet euch und beantwortet die Fragen. Wer in meinem Unterricht aufgepasst hat sollte keine Probleme haben. Viel Erfolg.');
+        learnjs.fs.Speech.clear();
+        learnjs.fs.Speech.hide();
+        await learnjs.fs.update(1);
+        const meterBarVal = document.getElementById('progressMeter');
+        const inputBarVal = document.getElementById('progressChallenge');
+        const meterBar = document.querySelector('.meterbar');
+        meterBar.classList.add('meterbar-visible');
+        learnjs.fs.Speech.hide();
+        const qAndA = [
+            {
+                q: `<strong>Frage eins: Beispielfrage 1 ist richtig`,
+                a: "richtig",
+            },
+            {
+                q: `<strong>Frage zwei: Beispielfrge 2 ist falsch.`,
+                a: "falsch",
+            },
+            {
+                q: `<strong>Frage zwei: Beispielfrge 3 ist falsch.`,
+                a: "falsch",
+            },
+            {
+                q: `<strong>Frage zwei: Beispielfrge 4 ist falsch.`,
+                a: "falsch",
+            },
+            {
+                q: `<strong>Frage zwei: Beispielfrge 5 ist falsch.`,
+                a: "falsch",
+            },
+            {
+                q: `<strong>Frage zwei: Beispielfrge 6 ist falsch.`,
+                a: "falsch",
+            },
+            {
+                q: `<strong>Frage zwei: Beispielfrge 7 ist falsch.`,
+                a: "falsch",
+            },
+            {
+                q: `<strong>Frage zwei: Beispielfrge 8 ist falsch.`,
+                a: "falsch",
+            },
+            {
+                q: `<strong>Frage zwei: Beispielfrge 9 ist falsch.`,
+                a: "falsch",
+            },
+            {
+                q: `<strong>Frage zwei: Beispielfrge 10 ist falsch.`,
+                a: "falsch",
+            }
+        ];
+        let current = 0;
+        let flip = { right: "Richtig", wrong: "Falsch" };
+        let choice;
+        learnjs.fs.Text.addClass("flip-question");
+        do {
+            learnjs.fs.Text.print(qAndA[current].q);
+            choice = await learnjs.fs.Menu.getInput(flip, "flip");
+            switch (choice) {
+                case flip.right:
+                    if (qAndA[current].a === "richtig") {
+                        learnjs.userData.Protagonist.pointsCollected = learnjs.userData.Protagonist.pointsCollected + 1;
+                    }
+                    ;
+                    current = current + 1;
+                    inputBarVal.value = current.toString() + "/10";
+                    meterBarVal.value = current.toString();
+                    break;
+                case flip.wrong:
+                    if (qAndA[current].a === "falsch") {
+                        learnjs.userData.Protagonist.pointsCollected = learnjs.userData.Protagonist.pointsCollected + 1;
+                    }
+                    ;
+                    current = current + 1;
+                    inputBarVal.value = current.toString() + "/10";
+                    meterBarVal.value = current.toString();
+                    break;
+            }
+        } while (meterBarVal.value != "10");
+        learnjs.fs.Text.close();
+        learnjs.fs.Speech.tell(learnjs.character.narrator, `Du hast ${learnjs.userData.Protagonist.pointsCollected} von 10 Fragen richtig beantwortet.`);
     }
     learnjs.Challenge = Challenge;
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
+    async function Credits() {
+        let credits = `
+         <div class="credits">
+         <h1>CREDITS</h1>\
+          <table>\
+            <tr>\
+              <td>Story</td>\
+              <td>Kevin Attinger</td>\
+            </tr>\
+            <tr>\
+              <td>Programming</td>\
+              <td>Kevin Attinger</td>\
+            </tr>\
+            </table>\
+            <h2>Music and Sound</h2>\
+            <table>\
+            <tr>\
+              <td>All Soundeffects are provided by <a href="https://pixabay.com/sound-effects/" target="blank">pixabay</a></td>\
+            </tr>\
+          </table>\
+          <h2>Special Thanks</h2>\
+          <p> to Riem Yasin & Jirka Dell'Oro</p>
+          <em> This Story is made with <a href="https://github.com/JirkaDellOro/FUDGE_Story" target="_blank">FUDGE STORY</a></em>
+          <div class="close-button-wrapper">
+            <div class="close-button">X</div>
+          </div>
+          </div>
+          `;
+        learnjs.fs.Text.print(credits);
+        const closeButtonInteraction = document.querySelector('.close-button');
+        closeButtonInteraction.addEventListener('click', returnHome);
+        function returnHome() {
+            learnjs.fs.Text.close();
+            return learnjs.Startscreen();
+        }
+    }
+    learnjs.Credits = Credits;
 })(learnjs || (learnjs = {}));
 var learnjs;
 (function (learnjs) {
@@ -212,9 +338,19 @@ var learnjs;
                 t01: '...',
             }
         };
+        document.addEventListener('keyup', (event) => {
+            let keypressed = event.key;
+            if (keypressed === 'Backspace') {
+                learnjs.fs.Sound.play(learnjs.sound.delete, 0.15, false);
+            }
+            if (keypressed !== 'Backspace') {
+                learnjs.fs.Sound.play(learnjs.sound.type, 0.15, false);
+            }
+        });
         getUserName();
         async function getUserName() {
-            await learnjs.fs.Speech.tell(null, "<p>Bevor es losgeht, am unterem rechtem Rand deines Bildschirms findest du einen Hilfe Button wo alle Tastaturbefehle zu finden sind:</p><p>Im Menü kannst du Speichern, ein Spielstand laden und das Intro überspringen</p><p>Wenn du mir jetzt noch verrätst wie du heißt geht es direkt los</p>", true, 'introduction-text');
+            await learnjs.fs.Sound.play(learnjs.sound.introMusic, 0.15, true);
+            await learnjs.fs.Speech.tell(null, `<p>Bevor es losgeht,mit dem Tastenkürzel <span class="color-red"> ESC </span> öffnest und schließt du das Menü. Dort findest du alle wichtigen Informationen. Wenn du keine weiteren Fragen hast und mir verrätst wie Du heißt beginnt die Visual Novel direkt.</p>`, true, 'introduction-text');
             learnjs.userData.Protagonist.name = await learnjs.fs.Speech.getInput();
             await learnjs.fs.Speech.hide();
             sequenzOne();
@@ -290,7 +426,6 @@ var learnjs;
             }
             ;
         }
-        learnjs.fs.Progress;
         function goToNextScene() {
             return learnjs.Home();
         }
@@ -349,6 +484,58 @@ var learnjs;
 })(learnjs || (learnjs = {}));
 var learnjs;
 (function (learnjs) {
+    async function Startscreen() {
+        let playerChoices = {
+            C0001: "Neues Spiel",
+            C0002: "Skip Intro",
+            C0003: "Credits"
+        };
+        learnjs.fs.Sound.play(learnjs.sound.menuMusic, 0.15, true);
+        chooseTopic();
+        async function chooseTopic() {
+            let userInput = await learnjs.fs.Menu.getInput(playerChoices, "startscreen--select");
+            switch (userInput) {
+                case playerChoices.C0001:
+                    await closeScreen();
+                    return learnjs.Introduction();
+                    break;
+                case playerChoices.C0002:
+                    await closeScreen();
+                    return learnjs.Topics();
+                    break;
+                case playerChoices.C0003:
+                    await closeScreen();
+                    return learnjs.Credits();
+                    break;
+            }
+            ;
+        }
+        async function closeScreen() {
+            learnjs.fs.Sound.fade(learnjs.sound.menuMusic, 0, 0);
+            await learnjs.fs.Sound.play(learnjs.sound.menuOption, 0.4, false);
+            let startScreen = document.querySelector('.startscreen--select');
+            startScreen.classList.remove('startscreen--select');
+            return;
+        }
+        const allButtons = document.querySelectorAll('button');
+        let number = 0;
+        allButtons.forEach(button => {
+            button.classList.add(`startscreen-button-${number}`);
+            let buttonClass = document.querySelector(`.startscreen-button-${number}`);
+            buttonClass.addEventListener('mouseover', test);
+            buttonClass.addEventListener('click', playSound);
+            number++;
+        });
+        function test() {
+            learnjs.fs.Sound.play(learnjs.sound.menuClick, 0.15, false);
+        }
+        function playSound() {
+        }
+    }
+    learnjs.Startscreen = Startscreen;
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
     async function Topics() {
         await learnjs.fs.Location.show(learnjs.locations.heaven);
         learnjs.fs.Character.hide(learnjs.character.mainCharacter);
@@ -357,7 +544,7 @@ var learnjs;
             C0001: "Variablen (noch nicht abgeschlossen)",
             C0002: "Operatoren (noch nicht abgeschlossen)",
             C0003: "Datentypen  (noch nicht abgeschlossen)",
-            C0004: "blablabla (noch nicht abgeschlossen)"
+            C0004: "Zur Prüfung"
         };
         if (learnjs.userData.Protagonist.variablesDone === true) {
             playerChoices.C0001 = "Variablen | Abgeschlossen. Willst du es erneut hören?";
@@ -376,6 +563,7 @@ var learnjs;
                     return learnjs.Datatypes();
                     break;
                 case playerChoices.C0004:
+                    return learnjs.Challenge();
                     break;
             }
             ;
@@ -517,9 +705,12 @@ var learnjs;
 var learnjs;
 (function (learnjs) {
     let menueObj = {
-        safe: 'safe',
-        load: 'load',
-        close: 'close',
+        safe: "Save",
+        load: "Load",
+        turnUpVolume: "+",
+        turnDownVolume: "-",
+        mute: "Mute Sound",
+        close: "Close"
     };
     let gameMenue;
     let isMenueOpen = true;
@@ -527,6 +718,16 @@ var learnjs;
         switch (action) {
             case menueObj.safe:
                 await learnjs.fs.Progress.save();
+                break;
+            case menueObj.turnUpVolume:
+                await incrementSound();
+                break;
+            case menueObj.turnDownVolume:
+                await decrementSound();
+                break;
+            case menueObj.mute:
+                console.log('mute');
+                await mute();
                 break;
             case menueObj.load:
                 await learnjs.fs.Progress.load();
@@ -536,6 +737,31 @@ var learnjs;
                 isMenueOpen = false;
                 break;
         }
+    }
+    let volume = 1.0;
+    let isMuted = false;
+    function incrementSound() {
+        if (volume >= 100)
+            return;
+        volume += 0.2;
+        learnjs.fs.Sound.setMasterVolume(volume);
+    }
+    function decrementSound() {
+        if (volume <= 0)
+            return;
+        volume -= 0.2;
+        learnjs.fs.Sound.setMasterVolume(volume);
+    }
+    function mute() {
+        if (!isMuted) {
+            volume = 0;
+            learnjs.fs.Sound.setMasterVolume(volume);
+        }
+        if (isMuted) {
+            volume = 1;
+            learnjs.fs.Sound.setMasterVolume(volume);
+        }
+        isMuted = !isMuted;
     }
     document.addEventListener("keydown", handleKeyPressed);
     async function handleKeyPressed(_event) {
@@ -599,12 +825,31 @@ var learnjs;
 })(learnjs || (learnjs = {}));
 var learnjs;
 (function (learnjs) {
+    learnjs.sound = {
+        // music 
+        menuMusic: "../Audio/menue-sound-loop.mp3",
+        introMusic: "../Audio/peaceful.mp3",
+        //simple sounds
+        menuClick: "../Audio/menue-sound.mp3",
+        menuOption: "../Audio/options.mp3",
+        type: "../Audio/type.mp3",
+        delete: "../Audio/delete.mp3",
+    };
+})(learnjs || (learnjs = {}));
+var learnjs;
+(function (learnjs) {
     learnjs.userData = {
         Protagonist: {
             name: 'Default',
             variableTest: '',
             variablesDone: false,
+            pointsCollected: 0,
         },
+    };
+    learnjs.dataForSave = {
+        nameProtagonist: "",
+        variablesDone: false,
+        progressMeter: 0,
     };
 })(learnjs || (learnjs = {}));
 //# sourceMappingURL=learnjs.js.map

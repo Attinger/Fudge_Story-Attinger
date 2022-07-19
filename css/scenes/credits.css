@@ -1,0 +1,24 @@
+.credits {
+    position: relative;
+    max-height:900px;
+    overflow-y: scroll;
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-button-wrapper {
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+.close-button {
+    background-color:black;
+    border-radius:50px;
+    padding:25px;
+    color:white;
+    cursor: pointer;
+}

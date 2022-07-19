@@ -7,7 +7,7 @@ namespace learnjs {
           C0001: "Variablen (noch nicht abgeschlossen)",
           C0002: "Operatoren (noch nicht abgeschlossen)",
           C0003: "Datentypen  (noch nicht abgeschlossen)",
-          C0004: "blablabla (noch nicht abgeschlossen)"
+          C0004: "Zur Prüfung"
         };
 
         if(userData.Protagonist.variablesDone === true) {
@@ -18,8 +18,6 @@ namespace learnjs {
 
 
         async function chooseTopic() {
-
-      
             let userInput = await fs.Menu.getInput(playerChoices, "topic--select");
       
             switch (userInput) {
@@ -33,6 +31,7 @@ namespace learnjs {
                 return Datatypes();
               break;
               case playerChoices.C0004:
+                return Challenge();
               break;
             };
           }

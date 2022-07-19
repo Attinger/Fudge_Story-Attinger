@@ -18,10 +18,22 @@ namespace learnjs {
       }
     };
 
+    document.addEventListener('keyup', (event) => {
+      let keypressed = event.key;
+
+      if(keypressed === 'Backspace') {
+        fs.Sound.play(sound.delete, 0.15, false);
+      }
+
+      if(keypressed !== 'Backspace') {
+        fs.Sound.play(sound.type, 0.15, false);
+      }
+    });
 
     getUserName();
     async function getUserName() {
-      await fs.Speech.tell(null, "<p>Bevor es losgeht, am unterem rechtem Rand deines Bildschirms findest du einen Hilfe Button wo alle Tastaturbefehle zu finden sind:</p><p>Im Menü kannst du Speichern, ein Spielstand laden und das Intro überspringen</p><p>Wenn du mir jetzt noch verrätst wie du heißt geht es direkt los</p>", true, 'introduction-text');
+      await fs.Sound.play(sound.introMusic, 0.15, true);
+      await fs.Speech.tell(null, `<p>Bevor es losgeht,mit dem Tastenkürzel <span class="color-red"> ESC </span> öffnest und schließt du das Menü. Dort findest du alle wichtigen Informationen. Wenn du keine weiteren Fragen hast und mir verrätst wie Du heißt beginnt die Visual Novel direkt.</p>`, true, 'introduction-text');
       userData.Protagonist.name = await fs.Speech.getInput();
       await fs.Speech.hide();
       sequenzOne();
@@ -100,8 +112,6 @@ namespace learnjs {
         break;
       };
     }
-
-    fs.Progress
 
     function goToNextScene() {
       return Home();

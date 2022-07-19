@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="./css/global/main.css">
   <link rel="stylesheet" href="./css/scenes/startscreen.css">
   <link rel="stylesheet" href="./css/scenes/intro.css">
+  <link rel="stylesheet" href="./css/scenes/credits.css">
   <link rel="stylesheet" href="./css/scenes/heaven.css">
   <link rel="stylesheet" href="./css/global/button.css">
   <script src="Fudge/FudgeCore.js"></script>
@@ -39,17 +40,17 @@
       <content></content>
     </speech>
 
+    <!-- Aisaka Meterbar -->
+    <div type="interface" class="meterbar">
+      <input id="progressChallenge" class="progressChallenge" type="text" value="0/10" disabled>
+      <!-- für value der Skala; Füllung -->
+      <meter id="progressMeter" value="0" name="progressMeter" min="0" max="10" disabled></meter>
+    </div>
+
     <dialog type="text">
       The content of a page of text for reading
     </dialog>
-
-    <div type="interface">
-    </div>
   </scene>
-
-  <div class="help">
-    <div class="help-icon"></div>
-  </div>
 </body>
 
 </html>

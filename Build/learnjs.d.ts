@@ -29,6 +29,9 @@ declare namespace learnjs {
     function Challenge(): fs.SceneReturn;
 }
 declare namespace learnjs {
+    function Credits(): fs.SceneReturn;
+}
+declare namespace learnjs {
     function Datatypes(): fs.SceneReturn;
 }
 declare namespace learnjs {
@@ -45,6 +48,9 @@ declare namespace learnjs {
 }
 declare namespace learnjs {
     function Room(): fs.SceneReturn;
+}
+declare namespace learnjs {
+    function Startscreen(): fs.SceneReturn;
 }
 declare namespace learnjs {
     function Topics(): fs.SceneReturn;
@@ -139,11 +145,27 @@ declare namespace learnjs {
     };
 }
 declare namespace learnjs {
+    let sound: {
+        menuMusic: string;
+        introMusic: string;
+        menuClick: string;
+        menuOption: string;
+        type: string;
+        delete: string;
+    };
+}
+declare namespace learnjs {
     let userData: {
         Protagonist: {
             name: string;
             variableTest: string;
             variablesDone: boolean;
+            pointsCollected: number;
         };
+    };
+    let dataForSave: {
+        nameProtagonist: string;
+        variablesDone: boolean;
+        progressMeter: number;
     };
 }
