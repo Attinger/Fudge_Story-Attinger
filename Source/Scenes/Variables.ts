@@ -35,6 +35,17 @@ namespace learnjs {
         }
 
         await fs.Speech.tell(character.goodProf, `Mehr müsst ihr über Variablen in der Prüfung nicht wissen. Du entscheidest wie es weiter geht.`, true, 'editor--speech');
+        fs.Inventory.add(items.variables);
+        itemAdded();
+
+        function itemAdded() {
+          setTimeout(() => {
+            fs.Text.print('Ein Item wurde deinem Inventar hinzugefügt.')
+            fs.Text.addClass('item-added');
+          }, 1000);
+          fs.Text.close();
+        }
+
         userData.Protagonist.variablesDone = true;
 
         const variablesPages: string = `Weitere Nützliche Informationen findest du unter folgenden links:<br><br><a target="_blank" href="http://www.google.de">Google</a><br>`

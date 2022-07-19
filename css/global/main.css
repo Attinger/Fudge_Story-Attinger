@@ -96,9 +96,15 @@ speech content {
   color: rgb(218, 255, 55);
 }
 
+dialog {
+  bottom: calc(0 + 80px);
+}
+
 .ingame--menue {
   z-index:999999 !important;
   bottom:0;
+  left:0;
+  right:unset;
 }
 
 .skip {
@@ -209,3 +215,37 @@ input[id="progressChallenge"] {
 .flip-question {
   margin-top:225px;
 }
+
+#Variablen {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#Variablen name {
+  font-weight:bold;
+  color:white;
+}
+
+#Variablen amount {
+ display:none;
+}
+
+#Variablen description {
+  color:white;
+ }
+
+.inventory {
+  background-color:green;
+}
+
+.inventory--button {
+  padding:15px 25px;
+  background-color:black;
+  color:white;
+  cursor: pointer;
+}
+
+
+
