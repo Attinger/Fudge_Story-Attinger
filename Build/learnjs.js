@@ -13,8 +13,8 @@ var learnjs;
             //{ id: "Home", scene: Home, name: "Home" },
             //{ id: "Room", scene: Room, name: "Room" },
             //{ id: "Heaven", scene: Heaven, name: "Heaven" },
-            //{ id: "Topics", scene: Topics, name: "Topics" },
-            { id: "roomSecond", scene: learnjs.RoomSecond, name: "RoomSecond" },
+            { id: "Topics", scene: learnjs.Topics, name: "Topics" },
+            //{id: "roomSecond", scene: RoomSecond, name: "RoomSecond"},
         ];
         // start the sequence
         learnjs.fs.Progress.go(scenes);
@@ -38,10 +38,10 @@ var learnjs;
 var learnjs;
 (function (learnjs) {
     learnjs.items = {
-        exampleItem: {
-            name: 'bspItem',
-            desc: 'Ein Beispielitem',
-            img: './Images/items/bspitem.png',
+        variables: {
+            name: `Variablen`,
+            description: 'const deklariert eine konstante. Heißt der Wert der Variablen ist fix und kann nichtmehr geändert werden! Let ist das Gegenteil - sprich die Werte der Variablen können verändert werden.',
+            image: '',
         }
     };
 })(learnjs || (learnjs = {}));
@@ -239,7 +239,7 @@ var learnjs;
         await learnjs.fs.Location.show(learnjs.locations.homeFloor);
         await learnjs.fs.Character.show(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.fs.positionPercent(0, 100));
         learnjs.fs.update(1);
-        await learnjs.fs.Speech.tell(learnjs.character.narrator, `<span class="color-red">${learnjs.userData.Protagonist.name}</span> hat mit der Programmierung zwar nichtsmehr am Hut. Lebt aber ein erfülltes und glückliches Leben. Sie versteht sich mit Ihrer Familie gut und Sie ist überaus glücklich.`);
+        await learnjs.fs.Speech.tell(learnjs.character.narrator, `<span class="color-red">${learnjs.userData.Protagonist.name}</span> hat zwar mit dem Programmieren nichtsmehr am Hut. Lebt aber ein erfülltes und glückliches Leben. Sie versteht sich mit Ihrer Familie gut und Sie ist überaus glücklich.`);
     }
     learnjs.HappyEnd = HappyEnd;
 })(learnjs || (learnjs = {}));
@@ -675,6 +675,15 @@ var learnjs;
             await learnjs.fs.Speech.tell(learnjs.character.goodProf, `Leider nicht richtig der Wert wäre 5. Wie gesagt wenn eine Variable mit ${getConst} deklariert wird ändert sich der Wert nicht!.`, true, 'editor--speech');
         }
         await learnjs.fs.Speech.tell(learnjs.character.goodProf, `Mehr müsst ihr über Variablen in der Prüfung nicht wissen. Du entscheidest wie es weiter geht.`, true, 'editor--speech');
+        learnjs.fs.Inventory.add(learnjs.items.variables);
+        itemAdded();
+        function itemAdded() {
+            setTimeout(() => {
+                learnjs.fs.Text.print('Ein Item wurde deinem Inventar hinzugefügt.');
+                learnjs.fs.Text.addClass('item-added');
+            }, 1000);
+            learnjs.fs.Text.close();
+        }
         learnjs.userData.Protagonist.variablesDone = true;
         const variablesPages = `Weitere Nützliche Informationen findest du unter folgenden links:<br><br><a target="_blank" href="http://www.google.de">Google</a><br>`;
         let playerChoices = {
@@ -839,6 +848,7 @@ var learnjs;
         load: "Load",
         turnUpVolume: "+",
         turnDownVolume: "-",
+        shortcuts: "Shortcuts",
         mute: "Mute Sound",
         close: "Close"
     };
@@ -856,8 +866,10 @@ var learnjs;
                 await decrementSound();
                 break;
             case menueObj.mute:
-                console.log('mute');
                 await mute();
+                break;
+            case menueObj.shortcuts:
+                await showShortcuts();
                 break;
             case menueObj.load:
                 await learnjs.fs.Progress.load();
@@ -893,6 +905,9 @@ var learnjs;
         }
         isMuted = !isMuted;
     }
+    function showShortcuts() {
+        learnjs.fs.Text.print(`<strong>Shortcuts</strong><br>Menü öffnen -> M<br>Inventar öffnen -> I<br>Inventar schließen -> ESC<br>Speichern -> F8<br>Laden -> F9`);
+    }
     document.addEventListener("keydown", handleKeyPressed);
     async function handleKeyPressed(_event) {
         switch (_event.code) {
@@ -902,7 +917,7 @@ var learnjs;
             case learnjs.f.KEYBOARD_CODE.F9:
                 await learnjs.fs.Progress.load();
                 break;
-            case learnjs.f.KEYBOARD_CODE.ESC:
+            case learnjs.f.KEYBOARD_CODE.M:
                 if (!isMenueOpen) {
                     gameMenue = learnjs.fs.Menu.create(menueObj, menueButtonPressed, 'ingame--menue');
                     isMenueOpen = true;
@@ -912,6 +927,14 @@ var learnjs;
                     isMenueOpen = false;
                     gameMenue.close();
                 }
+                break;
+            case learnjs.f.KEYBOARD_CODE.I:
+                console.log("open inventory");
+                await learnjs.fs.Inventory.open();
+                break;
+            case learnjs.f.KEYBOARD_CODE.ESC:
+                await learnjs.fs.Inventory.open();
+                learnjs.fs.Inventory.close();
                 break;
         }
     }

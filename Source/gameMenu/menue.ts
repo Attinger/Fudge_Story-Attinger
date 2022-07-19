@@ -4,6 +4,7 @@ namespace learnjs {
       load: "Load",
       turnUpVolume: "+",
       turnDownVolume: "-",
+      shortcuts: "Shortcuts",
       mute: "Mute Sound",
       close: "Close"
       }
@@ -23,8 +24,10 @@ namespace learnjs {
             await decrementSound();
             break;
           case menueObj.mute:
-            console.log('mute');
             await mute();
+          break;
+          case menueObj.shortcuts:
+            await showShortcuts();
           break;
           case menueObj.load:
             await fs.Progress.load();
@@ -67,8 +70,11 @@ namespace learnjs {
         isMuted = !isMuted
       }
 
+      function showShortcuts() {
+        fs.Text.print(`<strong>Shortcuts</strong><br>Menü öffnen -> M<br>Inventar öffnen -> I<br>Inventar schließen -> ESC<br>Speichern -> F8<br>Laden -> F9`);
+      }
 
-    
+
       document.addEventListener("keydown", handleKeyPressed);
       async function handleKeyPressed(_event: KeyboardEvent): Promise<void>{
         switch(_event.code) {
@@ -78,7 +84,7 @@ namespace learnjs {
           case f.KEYBOARD_CODE.F9:
             await fs.Progress.load();
             break;
-          case f.KEYBOARD_CODE.ESC:
+          case f.KEYBOARD_CODE.M:
             if (!isMenueOpen) {
               gameMenue = fs.Menu.create(menueObj, menueButtonPressed, 'ingame--menue');
               isMenueOpen = true;
@@ -88,6 +94,14 @@ namespace learnjs {
               gameMenue.close();
             }
             break;
+          case f.KEYBOARD_CODE.I:
+            console.log("open inventory");
+            await fs.Inventory.open();
+          break;
+          case f.KEYBOARD_CODE.ESC:
+            await fs.Inventory.open();
+            fs.Inventory.close();
+          break;
         }
       }
 }

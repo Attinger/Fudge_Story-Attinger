@@ -18,10 +18,10 @@ declare namespace learnjs {
 }
 declare namespace learnjs {
     let items: {
-        exampleItem: {
+        variables: {
             name: string;
-            desc: string;
-            img: string;
+            description: string;
+            image: string;
         };
     };
 }
