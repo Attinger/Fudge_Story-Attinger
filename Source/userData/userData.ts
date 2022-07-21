@@ -1,14 +1,14 @@
 namespace learnjs {
     export let userData = {
         Protagonist: {
-          name: 'Default',
+          name: 'Kazuko',
           variableTest: '',
           pointsCollected: 0,
         },
       };
 
       export let dataForSave = {
-        nameProtagonist: "",
+        nameProtagonist: "Kazuko",
         variablesDone: false,
         datatypesDone: false,
         operatorsDone: false,

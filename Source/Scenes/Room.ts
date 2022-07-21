@@ -13,12 +13,7 @@ namespace learnjs {
         fs.update(1);
         await fs.Speech.tell(character.narrator, `4:20Uhr.... Mitten in der Nacht..<span class="color-red">${userData.Protagonist.name}</span> schläft bereits tief und fest`);
         await fs.Speech.tell(character.narrator, 'Als plötzlich....');
-        fs.Speech.clear();
-        fs.Speech.hide();
-        fs.Character.hideAll();
-        await fs.update(transitions.long.duration, transitions.long.alpha, transitions.long.edge);
-        await goToNextScene();
-        fs.update(1);
+        goToNextScene();
 
         function goToNextScene() {
             return Heaven();

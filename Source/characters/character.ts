@@ -25,7 +25,7 @@ namespace learnjs {
           }
         },
         mainCharacter: {
-          name: '',
+          name: 'Kazuko',
           origin: fs.ORIGIN.BOTTOMLEFT,
           pose: {
             normal: "./Images/main-character/mc-normal.png",

@@ -351,8 +351,10 @@ var learnjs;
 var learnjs;
 (function (learnjs) {
     async function Heaven() {
+        await learnjs.fs.update(learnjs.transitions.long.duration, learnjs.transitions.long.alpha, learnjs.transitions.long.edge);
         learnjs.fs.Sound.fade(learnjs.sound.introMusic, 0, 0);
         learnjs.fs.Sound.play(learnjs.sound.heavenMusic, 0.15, true);
+        learnjs.fs.update(1);
         await learnjs.fs.Location.show(learnjs.locations.heaven);
         await learnjs.fs.Character.animate(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.slideInAnimation());
         await learnjs.fs.Speech.tell(learnjs.userData.Protagonist.name, 'Was zum....?');
@@ -626,12 +628,7 @@ var learnjs;
         learnjs.fs.update(1);
         await learnjs.fs.Speech.tell(learnjs.character.narrator, `4:20Uhr.... Mitten in der Nacht..<span class="color-red">${learnjs.userData.Protagonist.name}</span> schläft bereits tief und fest`);
         await learnjs.fs.Speech.tell(learnjs.character.narrator, 'Als plötzlich....');
-        learnjs.fs.Speech.clear();
-        learnjs.fs.Speech.hide();
-        learnjs.fs.Character.hideAll();
-        await learnjs.fs.update(learnjs.transitions.long.duration, learnjs.transitions.long.alpha, learnjs.transitions.long.edge);
-        await goToNextScene();
-        learnjs.fs.update(1);
+        goToNextScene();
         function goToNextScene() {
             return learnjs.Heaven();
         }
@@ -922,7 +919,7 @@ var learnjs;
             }
         },
         mainCharacter: {
-            name: '',
+            name: 'Kazuko',
             origin: learnjs.fs.ORIGIN.BOTTOMLEFT,
             pose: {
                 normal: "./Images/main-character/mc-normal.png",
@@ -1100,13 +1097,13 @@ var learnjs;
 (function (learnjs) {
     learnjs.userData = {
         Protagonist: {
-            name: 'Default',
+            name: 'Kazuko',
             variableTest: '',
             pointsCollected: 0,
         },
     };
     learnjs.dataForSave = {
-        nameProtagonist: "",
+        nameProtagonist: "Kazuko",
         variablesDone: false,
         datatypesDone: false,
         operatorsDone: false,
