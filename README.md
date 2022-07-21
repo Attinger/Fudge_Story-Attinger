@@ -7,15 +7,13 @@ f9 = Spiel an Spielstand laden <br/>
 M = öffnen und schließen des Menüs <br/>
 linke Maustaste = steuern der Visual Novel <br/>
 I = Inventar öffnen <br/>
-# Reference
-- [APIs](https://jirkadelloro.github.io/FUDGE_Story/Documentation/Reference/#fudge-story-reference)
 
 ## Bewertungskriterien
 © Prof. Dipl.-Ing. Jirka R. Dell'Oro-Friedl, HFU
 
 ## Links
 - [Zur Visual Novel](https://attinger.github.io/Fudge_Story-Attinger/)
-- [Code](.https://github.com/Attinger/Fudge_Story-Attinger/tree/main/Source)
+- [Code](https://github.com/Attinger/Fudge_Story-Attinger/tree/main/Source)
 - [Konzept](https://github.com/Attinger/Fudge_Story-Attinger/blob/main/concept/VN-Konzept.pdf)
 - [Branching Narratives](https://github.com/Attinger/Fudge_Story-Attinger/blob/main/concept/vn-paths.pdf)
 
