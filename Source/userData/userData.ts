@@ -3,14 +3,15 @@ namespace learnjs {
         Protagonist: {
           name: 'Default',
           variableTest: '',
-          variablesDone: false,
-          pointsCollected: 10,
+          pointsCollected: 0,
         },
       };
 
       export let dataForSave = {
         nameProtagonist: "",
         variablesDone: false,
+        datatypesDone: false,
+        operatorsDone: false,
         progressMeter: 0,
       }
     

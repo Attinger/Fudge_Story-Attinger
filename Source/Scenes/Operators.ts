@@ -10,7 +10,21 @@ namespace learnjs {
         await fs.Speech.tell(character.goodProf, `Ebenfalls gibt es noch den sogenannten Zuweisungsoperator dieser ist immer als <span class="color-red> = </span> gekennzeichnet. Diesen haben wir bereits kennengelernt, er dient ganz simpel dazu Variablen Werte zuzuweisen.`, true, 'editor--speech');
         await fs.Speech.tell(character.goodProf, `Auch sehr sehr wichtig sind die Vergleichsoperatoren.<br><br> <span class="color-red">===   !==  <  >  <=   >=</span>.<br><br> Du kennst hier bestimmt auch wieder einigen Zeichen aus der Mathematik. Zur Erklärung: <br><br> <span class="color-red">===</span> heißt soviel wie Datentyp und Wert ist gleich.<br><span class="color-red">!==</span> heißt soviel wie ist nicht gleich wie. <br><span class="color-red">></span> heißt soviel wie größer als, somit ist <span class="color-red"><</span> das Gegenteil davon.<br><span class="color-red">>=</span> heißt soviel wie größer oder gleich.`, true, 'editor--speech');
         await fs.Speech.tell(character.goodProf, `Zuletzt sind auch sogenannte Logische Operatoren wichtig.<br><br> <span class="color-red">&&  || !</span>.<br><br> Diese Logischen Operatoren benötigt man meist dann wenn man gewissen Bedingungen aufstellen möchte. <br>Was heißen diese Zeichen?<br><br><span class="color-red"> && </span> heißt soviel wie "und"<br><span class="color-red"> || </span> bedeutet "oder"<br><span class="color-red"> ! </span>heißt "nicht".<br> Das mag dir alles aktuell sehr trocken vorkommen, aber wenn man komplexere Programme erstellen möchte benötigt man mit relativer Sicherheit aller dieser Operatorentypen dementsprechend ist es wichtig mal von diesen gehört zu haben.`, true, 'editor--speech');
-        await fs.Speech.tell(character.goodProf, 'Datentyp Undefined<br> Ist das englische Wort für nicht definiert. Und so ist es auch, es entsteht immer dann wenn einer Variable bzw. Eigenschaft noch kein Wert zugewiesen wurde.', true, 'editor--speech');
-        await fs.Speech.tell(character.goodProf, 'Datentyp Null<br> Ist sehr ähnliche zu Undefined, während Undefined wie eben erwähnt aussagt das ein Wert noch nicht gesetzt wurde sagt Null jedoch aus das der Wert explizit geleert also auf sozusagen Nichts festgelegt wurde.', true, 'editor--speech');
+        await fs.Speech.tell(character.goodProf, `Mehr müsst ihr über Operatoren in der Prüfung nicht wissen. Du entscheidest wie es weiter geht.`, true, 'editor--speech');
+        
+        dataForSave.operatorsDone = true;
+
+        fs.Inventory.add(items.operators);
+        await itemAdded();
+
+        async function itemAdded() {
+          setTimeout(() => {
+            fs.Text.print('Ein Item wurde deinem Inventar hinzugefügt.')
+            fs.Text.addClass('item-added');
+          }, 1000);
+          fs.Text.close();
+        }
+
+        return Topics();
     }
 }

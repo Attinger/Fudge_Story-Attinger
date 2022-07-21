@@ -6,10 +6,7 @@ namespace learnjs {
         await fs.Speech.tell(userData.Protagonist, 'Wenn ich doch nur jemanden hätte der mir das alles angenehm erklärt, wäre mein Leben so viel leichter');
         await fs.Speech.tell(userData.Protagonist, 'Ich muss morgen unbedingt anfangen, sonst hab ich es verkackt');
         await fs.Speech.tell(userData.Protagonist, 'Alexa');
-        //put in Alexa sound
         await fs.Speech.tell(userData.Protagonist, 'Licht aus!');
-        //put Alexa done sound in.
-        //show dark room
         await fs.Character.animate(character.mainCharacter, character.mainCharacter.pose.normal, slideOutAnimation());
         fs.Speech.clear();
         fs.Speech.hide();
@@ -19,10 +16,8 @@ namespace learnjs {
         fs.Speech.clear();
         fs.Speech.hide();
         fs.Character.hideAll();
-        await fs.update(transitions.long.duration, transitions.long.alpha, transitions.long.edge).then(() => {
-            goToNextScene();
-        });
-        //check if Transition works here, somehow it didnt;
+        await fs.update(transitions.long.duration, transitions.long.alpha, transitions.long.edge);
+        await goToNextScene();
         fs.update(1);
 
         function goToNextScene() {

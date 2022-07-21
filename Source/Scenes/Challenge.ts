@@ -1,5 +1,7 @@
 namespace learnjs {
     export async function Challenge(): fs.SceneReturn {
+        fs.Sound.fade(sound.heavenMusic, 0, 0);
+        fs.Sound.play(sound.challengeMusic, 0.15, true);
         fs.Speech.clear();
         fs.Speech.hide();
         fs.Character.hideAll();
@@ -27,43 +29,43 @@ namespace learnjs {
         const qAndA = [
             {
                 q: `<strong>Frage eins:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
+                a: "falsch",
+            },
+            {
+                q: `<strong>Frage zwei:</strong><br> Dem Datentyp String können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
                 a: "richtig",
             },
             {
-                q: `<strong>Frage zwei:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
+                q: `<strong>Frage drei:</strong><br> Es gibt in Javascript Rechenoperatoren. Richtig oder Falsch?`,
+                a: "richtig",
+            },
+            {
+                q: `<strong>Frage vier:</strong><br> Um zwei Strings miteinander zu kombinieren nutzt man zwischen den strings ein +. Richtig oder Falsch?`,
+                a: "richtig",
+            },
+            {
+                q: `<strong>Frage fünf:</strong><br> Ein ! vor einer Variable heißt soviel wie ,,nicht''. Richtig oder Falsch?`,
+                a: "richtig",
+            },
+            {
+                q: `<strong>Frage sechs:</strong><br>Null und undefined ist das selbe. Richtig oder Falsch?`,
                 a: "falsch",
             },
             {
-                q: `<strong>Frage drei:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
+                q: `<strong>Frage sieben:</strong><br>In Javascript nutzt man ein Komma um Dezimalzahlen voneinander zu trennen bsp. 2,45. Richtig oder Falsch?`,
                 a: "falsch",
             },
             {
-                q: `<strong>Frage vier:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
+                q: `<strong>Frage acht:</strong><br> Der Wert eines Booleans liefert immer die Antwort auf eine Ja oder Nein Frage. Richtig oder Falsch?`,
+                a: "richtig",
+            },
+            {
+                q: `<strong>Frage neun:</strong><br> Einer Variable die mit const gekennzeichnet ist kann man einen neuen Wert zuweisen. Richtig oder Falsch?`,
                 a: "falsch",
             },
             {
-                q: `<strong>Frage fünf:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
-                a: "falsch",
-            },
-            {
-                q: `<strong>Frage sechs:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
-                a: "falsch",
-            },
-            {
-                q: `<strong>Frage sieben:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
-                a: "falsch",
-            },
-            {
-                q: `<strong>Frage acht:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
-                a: "falsch",
-            },
-            {
-                q: `<strong>Frage neun:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
-                a: "falsch",
-            },
-            {
-                q: `<strong>Frage zehn:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
-                a: "falsch",
+                q: `<strong>Frage zehn:</strong><br> Einer Variable die mit let gekennzeichnet ist kann man einen neuen Wert zuweisen. Richtig oder Falsch?`,
+                a: "richtig",
             }
         ];
 
@@ -106,7 +108,5 @@ namespace learnjs {
         await fs.Speech.tell(character.narrator, `Die Prüfung ist zuende und <span class="color-red">${userData.Protagonist.name}</span> ist auf dem Weg nachhause.`);
         await fs.Character.animate(character.mainCharacter, character.mainCharacter.pose.normal, slideOutAnimation());
         return homeSecond();
-        
-        //fs.Speech.tell(character.narrator, `Du hast ${userData.Protagonist.pointsCollected} von 10 Fragen richtig beantwortet.`);
       }
 }

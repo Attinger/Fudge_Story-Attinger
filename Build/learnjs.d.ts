@@ -23,6 +23,16 @@ declare namespace learnjs {
             description: string;
             image: string;
         };
+        operators: {
+            name: string;
+            description: string;
+            image: string;
+        };
+        datatypes: {
+            name: string;
+            description: string;
+            image: string;
+        };
     };
 }
 declare namespace learnjs {
@@ -174,6 +184,8 @@ declare namespace learnjs {
     let sound: {
         menuMusic: string;
         introMusic: string;
+        heavenMusic: string;
+        challengeMusic: string;
         menuClick: string;
         menuOption: string;
         type: string;
@@ -185,13 +197,14 @@ declare namespace learnjs {
         Protagonist: {
             name: string;
             variableTest: string;
-            variablesDone: boolean;
             pointsCollected: number;
         };
     };
     let dataForSave: {
         nameProtagonist: string;
         variablesDone: boolean;
+        datatypesDone: boolean;
+        operatorsDone: boolean;
         progressMeter: number;
     };
 }

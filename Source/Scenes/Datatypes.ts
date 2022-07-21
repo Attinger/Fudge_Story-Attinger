@@ -10,5 +10,20 @@ namespace learnjs {
         await fs.Speech.tell(character.goodProf, 'Datentyp Boolean<br> Sind Wahrheitswerte, die ausschließlich zwei Zustände annehmen können True(wahr) oder False(falsch). Der Wert eines Booleans liefert also immer die Antwort auf eine Ja/Nein Frage.', true, 'editor--speech');
         await fs.Speech.tell(character.goodProf, 'Datentyp Undefined<br> Ist das englische Wort für nicht definiert. Und so ist es auch, es entsteht immer dann wenn einer Variable bzw. Eigenschaft noch kein Wert zugewiesen wurde.', true, 'editor--speech');
         await fs.Speech.tell(character.goodProf, 'Datentyp Null<br> Ist sehr ähnliche zu Undefined, während Undefined wie eben erwähnt aussagt das ein Wert noch nicht gesetzt wurde sagt Null jedoch aus das der Wert explizit geleert also auf sozusagen Nichts festgelegt wurde.', true, 'editor--speech');
+        await fs.Speech.tell(character.goodProf, `Mehr müsst ihr über Datentypen in der Prüfung nicht wissen. Du entscheidest wie es weiter geht.`, true, 'editor--speech');
+        dataForSave.datatypesDone = true;
+
+        fs.Inventory.add(items.datatypes);
+        await itemAdded();
+
+        async function itemAdded() {
+          setTimeout(() => {
+            fs.Text.print('Ein Item wurde deinem Inventar hinzugefügt.')
+            fs.Text.addClass('item-added');
+          }, 1000);
+          fs.Text.close();
+        }
+
+        return Topics();
     }
 }

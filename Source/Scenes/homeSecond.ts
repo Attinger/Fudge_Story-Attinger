@@ -1,5 +1,7 @@
 namespace learnjs {
     export async function homeSecond(): fs.SceneReturn {
+        fs.Sound.fade(sound.challengeMusic, 0, 0);
+        fs.Sound.play(sound.introMusic, 0.15, true);
         await fs.Location.show(locations.homeFloor);
         await fs.Character.show(character.mcMom, character.mcMom.pose.happy, fs.positionPercent(0, 100));
         await fs.Speech.tell(character.mcMom, `Hey mein Schatz! Wie war deine Prüfung <span class="color-red">${userData.Protagonist.name}</span>?????`);

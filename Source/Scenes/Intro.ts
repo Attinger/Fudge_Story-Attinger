@@ -76,12 +76,10 @@ namespace learnjs {
         C0002: "Nichts sagen"
       };
 
-      let userInput = await fs.Menu.getInput(playerChoices, "startscreen--select");
+      let userInput = await fs.Menu.getInput(playerChoices, "player--select");
 
       switch (userInput) {
         case playerChoices.C0001:
-          await closeScreen();
-          await fs.update(1);
           await fs.Speech.tell(userData.Protagonist, dialogues.mainChar.t00);
           await fs.update(1);
           await fs.Character.hide(character.mainCharacter);
@@ -97,8 +95,6 @@ namespace learnjs {
           });
         break;
         case playerChoices.C0002:
-          await closeScreen();
-          await fs.update(1);
           await fs.Speech.tell(userData.Protagonist, dialogues.mainChar.t01);
           await fs.update(1);
           await fs.Character.hide(character.mainCharacter);
@@ -114,12 +110,6 @@ namespace learnjs {
           });
         break;
       };
-    }
-    
-    async function closeScreen() {
-      let startScreen = document.querySelector('.startscreen--select');
-      startScreen.classList.remove('startscreen--select');
-      return;
     }
 
     function goToNextScene() {

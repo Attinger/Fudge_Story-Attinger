@@ -1,0 +1,27 @@
+.flip {
+    background-color:transparent;
+    margin-top:485px;
+}
+
+.flip button {
+    cursor: pointer;
+    color:white;
+    background-color:black;
+    padding:25px 25px;
+    margin: 15px auto;
+    transition:all 0.3s ease-in-out;
+    width:90%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size:16px;
+    border:1px solid white;
+}
+
+.flip button:hover {
+    color:black;
+    background-color:white;
+    border:1px solid black;
+    transform: scale(1.1);
+    border-radius:25px;
+}

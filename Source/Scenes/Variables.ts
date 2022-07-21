@@ -36,9 +36,9 @@ namespace learnjs {
 
         await fs.Speech.tell(character.goodProf, `Mehr müsst ihr über Variablen in der Prüfung nicht wissen. Du entscheidest wie es weiter geht.`, true, 'editor--speech');
         fs.Inventory.add(items.variables);
-        itemAdded();
+        await itemAdded();
 
-        function itemAdded() {
+        async function itemAdded() {
           setTimeout(() => {
             fs.Text.print('Ein Item wurde deinem Inventar hinzugefügt.')
             fs.Text.addClass('item-added');
@@ -46,33 +46,7 @@ namespace learnjs {
           fs.Text.close();
         }
 
-        userData.Protagonist.variablesDone = true;
-
-        const variablesPages: string = `Weitere Nützliche Informationen findest du unter folgenden links:<br><br><a target="_blank" href="http://www.google.de">Google</a><br>`
-
-        let playerChoices = {
-            C0001: "Mehr Informationen zu Variablen",
-            C0002: "Zurück zur Lernübersicht",
-            C0003: "Ich bin bereit für die Abschlussprüfung",
-          };
-
-        chooseVariablesAction();
-
-
-        async function chooseVariablesAction() {
-            let userInput = await fs.Menu.getInput(playerChoices, "topic--select");
-      
-            switch (userInput) {
-              case playerChoices.C0001:
-                fs.Text.print(variablesPages);
-              break;
-              case playerChoices.C0002:
-                return Topics();
-              break;
-              case playerChoices.C0003:
-                return Challenge();
-              break;
-            };
-          }
+        dataForSave.variablesDone = true;
+        return Topics();
     }
 }

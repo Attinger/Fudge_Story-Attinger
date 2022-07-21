@@ -223,6 +223,20 @@ input[id="progressChallenge"] {
   justify-content: center;
 }
 
+#Operatoren {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#Datentypen {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 #Variablen name {
   font-weight:bold;
   color:white;
@@ -233,6 +247,32 @@ input[id="progressChallenge"] {
 }
 
 #Variablen description {
+  color:white;
+ }
+
+ #Operatoren name {
+  font-weight:bold;
+  color:white;
+}
+
+#Operatoren amount {
+ display:none;
+}
+
+#Operatoren description {
+  color:white;
+ }
+
+ #Datentypen name {
+  font-weight:bold;
+  color:white;
+}
+
+#Datentypen amount {
+ display:none;
+}
+
+#Datentypen description {
   color:white;
  }
 

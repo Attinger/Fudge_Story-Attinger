@@ -1,7 +1,5 @@
 .credits {
     position: relative;
-    max-height:900px;
-    overflow-y: scroll;
     text-align: center;
     display:flex;
     flex-direction: column;

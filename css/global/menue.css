@@ -1,0 +1,7 @@
+.ingame--menue {
+    background-color:transparent;
+}
+
+.ingame--menue button {
+    cursor: pointer;
+}

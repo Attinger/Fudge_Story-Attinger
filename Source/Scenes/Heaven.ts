@@ -1,6 +1,7 @@
 namespace learnjs {
     export async function Heaven(): fs.SceneReturn {
-        console.log('yes');
+        fs.Sound.fade(sound.introMusic, 0, 0);
+        fs.Sound.play(sound.heavenMusic, 0.15, true);
         await fs.Location.show(locations.heaven);
         await fs.Character.animate(character.mainCharacter, character.mainCharacter.pose.normal, slideInAnimation());
         await fs.Speech.tell(userData.Protagonist.name, 'Was zum....?');

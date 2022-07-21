@@ -42,6 +42,16 @@ var learnjs;
             name: `Variablen`,
             description: 'const deklariert eine konstante. Heißt der Wert der Variablen ist fix und kann nichtmehr geändert werden! Let ist das Gegenteil - sprich die Werte der Variablen können verändert werden.',
             image: '',
+        },
+        operators: {
+            name: `Operatoren`,
+            description: 'Rechenoperatoren: + - x /; Zeichenkettenverknüpfung: +; Zuweisungoperatoren: =; Vergleichsoperatoren: === !== < > <= >=; Logische Operatoren: && || !',
+            image: '',
+        },
+        datatypes: {
+            name: `Datentypen`,
+            description: 'Number:Für Zahlen jeder Art ; String: Zeichenketten bzw Texte und Worte.; Boolean: Wahrheitswerte, True oder False; Undefined:Nicht definiert, kein Wert zugewiesen; Null: Wert wurde explizit entfernt.',
+            image: '',
         }
     };
 })(learnjs || (learnjs = {}));
@@ -78,6 +88,8 @@ var learnjs;
 var learnjs;
 (function (learnjs) {
     async function Challenge() {
+        learnjs.fs.Sound.fade(learnjs.sound.heavenMusic, 0, 0);
+        learnjs.fs.Sound.play(learnjs.sound.challengeMusic, 0.15, true);
         learnjs.fs.Speech.clear();
         learnjs.fs.Speech.hide();
         learnjs.fs.Character.hideAll();
@@ -102,43 +114,43 @@ var learnjs;
         const qAndA = [
             {
                 q: `<strong>Frage eins:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
+                a: "falsch",
+            },
+            {
+                q: `<strong>Frage zwei:</strong><br> Dem Datentyp String können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
                 a: "richtig",
             },
             {
-                q: `<strong>Frage zwei:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
+                q: `<strong>Frage drei:</strong><br> Es gibt in Javascript Rechenoperatoren. Richtig oder Falsch?`,
+                a: "richtig",
+            },
+            {
+                q: `<strong>Frage vier:</strong><br> Um zwei Strings miteinander zu kombinieren nutzt man zwischen den strings ein +. Richtig oder Falsch?`,
+                a: "richtig",
+            },
+            {
+                q: `<strong>Frage fünf:</strong><br> Ein ! vor einer Variable heißt soviel wie ,,nicht''. Richtig oder Falsch?`,
+                a: "richtig",
+            },
+            {
+                q: `<strong>Frage sechs:</strong><br>Null und undefined ist das selbe. Richtig oder Falsch?`,
                 a: "falsch",
             },
             {
-                q: `<strong>Frage drei:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
+                q: `<strong>Frage sieben:</strong><br>In Javascript nutzt man ein Komma um Dezimalzahlen voneinander zu trennen bsp. 2,45. Richtig oder Falsch?`,
                 a: "falsch",
             },
             {
-                q: `<strong>Frage vier:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
+                q: `<strong>Frage acht:</strong><br> Der Wert eines Booleans liefert immer die Antwort auf eine Ja oder Nein Frage. Richtig oder Falsch?`,
+                a: "richtig",
+            },
+            {
+                q: `<strong>Frage neun:</strong><br> Einer Variable die mit const gekennzeichnet ist kann man einen neuen Wert zuweisen. Richtig oder Falsch?`,
                 a: "falsch",
             },
             {
-                q: `<strong>Frage fünf:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
-                a: "falsch",
-            },
-            {
-                q: `<strong>Frage sechs:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
-                a: "falsch",
-            },
-            {
-                q: `<strong>Frage sieben:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
-                a: "falsch",
-            },
-            {
-                q: `<strong>Frage acht:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
-                a: "falsch",
-            },
-            {
-                q: `<strong>Frage neun:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
-                a: "falsch",
-            },
-            {
-                q: `<strong>Frage zehn:</strong><br> Dem Datentyp Number können nur Zeichenketten zugewiesen werden. Richtig oder Falsch?`,
-                a: "falsch",
+                q: `<strong>Frage zehn:</strong><br> Einer Variable die mit let gekennzeichnet ist kann man einen neuen Wert zuweisen. Richtig oder Falsch?`,
+                a: "richtig",
             }
         ];
         let current = 0;
@@ -181,7 +193,6 @@ var learnjs;
         await learnjs.fs.Speech.tell(learnjs.character.narrator, `Die Prüfung ist zuende und <span class="color-red">${learnjs.userData.Protagonist.name}</span> ist auf dem Weg nachhause.`);
         await learnjs.fs.Character.animate(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.slideOutAnimation());
         return learnjs.homeSecond();
-        //fs.Speech.tell(character.narrator, `Du hast ${userData.Protagonist.pointsCollected} von 10 Fragen richtig beantwortet.`);
     }
     learnjs.Challenge = Challenge;
 })(learnjs || (learnjs = {}));
@@ -200,13 +211,40 @@ var learnjs;
               <td>Programming</td>\
               <td>Kevin Attinger</td>\
             </tr>\
-            </table>\
-            <h2>Music and Sound</h2>\
-            <table>\
+          </table>\
+          <h2>Music and Sound</h2>\
+          <table>\
             <tr>\
               <td>All Soundeffects are provided by <a href="https://pixabay.com/sound-effects/" target="blank">pixabay</a></td>\
             </tr>\
           </table>\
+          <h2> Characters </h2>
+          <table>\
+            <tr>\
+              <td>Main Character: <a href="https://noranekogames.itch.io/hana?download" target="blank">found here</a></td>\
+            </tr>\
+            <tr>\
+              <td>Mom Character: <a href="https://st-chem-atelier.itch.io/free-vnsprite-kaede" target="blank">found here</a></td>\
+            </tr>\
+            <tr>\
+              <td>Prof. Dr. Harabashi Tadinpachi: <a href="https://charactercreator.org/" target="blank">created here</a></td>\
+            </tr>\
+            <tr>\
+              <td>Dr Javascript: <a href="https://charactercreator.org/" target="blank">created here</a></td>\
+            </tr>\
+          </table>\
+          <h2> Locations </h2>
+          <table>\
+          <tr>\
+            <td>Home Backgrounds: <a href="https://potat0master.itch.io/free-visual-novel-backgrounds-starter-pack-2" target="blank">found here</a></td>\
+          </tr>\
+          <tr>\
+            <td>Poor City in the Bad end: <a href="https://unsplash.com/photos/Lr49v_a5WOw" target="blank">found here</a></td>\
+          </tr>\
+          <tr>\
+            <td>Office for good end: <a href="https://unsplash.com/photos/lDlU1zbjGQA" target="blank">found here</a></td>\
+          </tr>\
+        </table>\
           <h2>Special Thanks</h2>\
           <p> to Riem Yasin & Jirka Dell'Oro</p>
           <em> This Story is made with <a href="https://github.com/JirkaDellOro/FUDGE_Story" target="_blank">FUDGE STORY</a></em>
@@ -237,6 +275,18 @@ var learnjs;
         await learnjs.fs.Speech.tell(learnjs.character.goodProf, 'Datentyp Boolean<br> Sind Wahrheitswerte, die ausschließlich zwei Zustände annehmen können True(wahr) oder False(falsch). Der Wert eines Booleans liefert also immer die Antwort auf eine Ja/Nein Frage.', true, 'editor--speech');
         await learnjs.fs.Speech.tell(learnjs.character.goodProf, 'Datentyp Undefined<br> Ist das englische Wort für nicht definiert. Und so ist es auch, es entsteht immer dann wenn einer Variable bzw. Eigenschaft noch kein Wert zugewiesen wurde.', true, 'editor--speech');
         await learnjs.fs.Speech.tell(learnjs.character.goodProf, 'Datentyp Null<br> Ist sehr ähnliche zu Undefined, während Undefined wie eben erwähnt aussagt das ein Wert noch nicht gesetzt wurde sagt Null jedoch aus das der Wert explizit geleert also auf sozusagen Nichts festgelegt wurde.', true, 'editor--speech');
+        await learnjs.fs.Speech.tell(learnjs.character.goodProf, `Mehr müsst ihr über Datentypen in der Prüfung nicht wissen. Du entscheidest wie es weiter geht.`, true, 'editor--speech');
+        learnjs.dataForSave.datatypesDone = true;
+        learnjs.fs.Inventory.add(learnjs.items.datatypes);
+        await itemAdded();
+        async function itemAdded() {
+            setTimeout(() => {
+                learnjs.fs.Text.print('Ein Item wurde deinem Inventar hinzugefügt.');
+                learnjs.fs.Text.addClass('item-added');
+            }, 1000);
+            learnjs.fs.Text.close();
+        }
+        return learnjs.Topics();
     }
     learnjs.Datatypes = Datatypes;
 })(learnjs || (learnjs = {}));
@@ -301,7 +351,8 @@ var learnjs;
 var learnjs;
 (function (learnjs) {
     async function Heaven() {
-        console.log('yes');
+        learnjs.fs.Sound.fade(learnjs.sound.introMusic, 0, 0);
+        learnjs.fs.Sound.play(learnjs.sound.heavenMusic, 0.15, true);
         await learnjs.fs.Location.show(learnjs.locations.heaven);
         await learnjs.fs.Character.animate(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.slideInAnimation());
         await learnjs.fs.Speech.tell(learnjs.userData.Protagonist.name, 'Was zum....?');
@@ -492,11 +543,9 @@ var learnjs;
                 C0001: "Sagen das niemand was verstanden hat",
                 C0002: "Nichts sagen"
             };
-            let userInput = await learnjs.fs.Menu.getInput(playerChoices, "startscreen--select");
+            let userInput = await learnjs.fs.Menu.getInput(playerChoices, "player--select");
             switch (userInput) {
                 case playerChoices.C0001:
-                    await closeScreen();
-                    await learnjs.fs.update(1);
                     await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, dialogues.mainChar.t00);
                     await learnjs.fs.update(1);
                     await learnjs.fs.Character.hide(learnjs.character.mainCharacter);
@@ -512,8 +561,6 @@ var learnjs;
                     });
                     break;
                 case playerChoices.C0002:
-                    await closeScreen();
-                    await learnjs.fs.update(1);
                     await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, dialogues.mainChar.t01);
                     await learnjs.fs.update(1);
                     await learnjs.fs.Character.hide(learnjs.character.mainCharacter);
@@ -530,11 +577,6 @@ var learnjs;
                     break;
             }
             ;
-        }
-        async function closeScreen() {
-            let startScreen = document.querySelector('.startscreen--select');
-            startScreen.classList.remove('startscreen--select');
-            return;
         }
         function goToNextScene() {
             return learnjs.Home();
@@ -553,8 +595,18 @@ var learnjs;
         await learnjs.fs.Speech.tell(learnjs.character.goodProf, `Ebenfalls gibt es noch den sogenannten Zuweisungsoperator dieser ist immer als <span class="color-red> = </span> gekennzeichnet. Diesen haben wir bereits kennengelernt, er dient ganz simpel dazu Variablen Werte zuzuweisen.`, true, 'editor--speech');
         await learnjs.fs.Speech.tell(learnjs.character.goodProf, `Auch sehr sehr wichtig sind die Vergleichsoperatoren.<br><br> <span class="color-red">===   !==  <  >  <=   >=</span>.<br><br> Du kennst hier bestimmt auch wieder einigen Zeichen aus der Mathematik. Zur Erklärung: <br><br> <span class="color-red">===</span> heißt soviel wie Datentyp und Wert ist gleich.<br><span class="color-red">!==</span> heißt soviel wie ist nicht gleich wie. <br><span class="color-red">></span> heißt soviel wie größer als, somit ist <span class="color-red"><</span> das Gegenteil davon.<br><span class="color-red">>=</span> heißt soviel wie größer oder gleich.`, true, 'editor--speech');
         await learnjs.fs.Speech.tell(learnjs.character.goodProf, `Zuletzt sind auch sogenannte Logische Operatoren wichtig.<br><br> <span class="color-red">&&  || !</span>.<br><br> Diese Logischen Operatoren benötigt man meist dann wenn man gewissen Bedingungen aufstellen möchte. <br>Was heißen diese Zeichen?<br><br><span class="color-red"> && </span> heißt soviel wie "und"<br><span class="color-red"> || </span> bedeutet "oder"<br><span class="color-red"> ! </span>heißt "nicht".<br> Das mag dir alles aktuell sehr trocken vorkommen, aber wenn man komplexere Programme erstellen möchte benötigt man mit relativer Sicherheit aller dieser Operatorentypen dementsprechend ist es wichtig mal von diesen gehört zu haben.`, true, 'editor--speech');
-        await learnjs.fs.Speech.tell(learnjs.character.goodProf, 'Datentyp Undefined<br> Ist das englische Wort für nicht definiert. Und so ist es auch, es entsteht immer dann wenn einer Variable bzw. Eigenschaft noch kein Wert zugewiesen wurde.', true, 'editor--speech');
-        await learnjs.fs.Speech.tell(learnjs.character.goodProf, 'Datentyp Null<br> Ist sehr ähnliche zu Undefined, während Undefined wie eben erwähnt aussagt das ein Wert noch nicht gesetzt wurde sagt Null jedoch aus das der Wert explizit geleert also auf sozusagen Nichts festgelegt wurde.', true, 'editor--speech');
+        await learnjs.fs.Speech.tell(learnjs.character.goodProf, `Mehr müsst ihr über Operatoren in der Prüfung nicht wissen. Du entscheidest wie es weiter geht.`, true, 'editor--speech');
+        learnjs.dataForSave.operatorsDone = true;
+        learnjs.fs.Inventory.add(learnjs.items.operators);
+        await itemAdded();
+        async function itemAdded() {
+            setTimeout(() => {
+                learnjs.fs.Text.print('Ein Item wurde deinem Inventar hinzugefügt.');
+                learnjs.fs.Text.addClass('item-added');
+            }, 1000);
+            learnjs.fs.Text.close();
+        }
+        return learnjs.Topics();
     }
     learnjs.Operators = Operators;
 })(learnjs || (learnjs = {}));
@@ -567,10 +619,7 @@ var learnjs;
         await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, 'Wenn ich doch nur jemanden hätte der mir das alles angenehm erklärt, wäre mein Leben so viel leichter');
         await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, 'Ich muss morgen unbedingt anfangen, sonst hab ich es verkackt');
         await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, 'Alexa');
-        //put in Alexa sound
         await learnjs.fs.Speech.tell(learnjs.userData.Protagonist, 'Licht aus!');
-        //put Alexa done sound in.
-        //show dark room
         await learnjs.fs.Character.animate(learnjs.character.mainCharacter, learnjs.character.mainCharacter.pose.normal, learnjs.slideOutAnimation());
         learnjs.fs.Speech.clear();
         learnjs.fs.Speech.hide();
@@ -580,10 +629,8 @@ var learnjs;
         learnjs.fs.Speech.clear();
         learnjs.fs.Speech.hide();
         learnjs.fs.Character.hideAll();
-        await learnjs.fs.update(learnjs.transitions.long.duration, learnjs.transitions.long.alpha, learnjs.transitions.long.edge).then(() => {
-            goToNextScene();
-        });
-        //check if Transition works here, somehow it didnt;
+        await learnjs.fs.update(learnjs.transitions.long.duration, learnjs.transitions.long.alpha, learnjs.transitions.long.edge);
+        await goToNextScene();
         learnjs.fs.update(1);
         function goToNextScene() {
             return learnjs.Heaven();
@@ -674,6 +721,7 @@ var learnjs;
     async function Topics() {
         await learnjs.fs.Location.show(learnjs.locations.heaven);
         learnjs.fs.Character.hide(learnjs.character.mainCharacter);
+        await learnjs.fs.Character.animate(learnjs.character.goodProf, learnjs.character.goodProf.pose.normal, learnjs.fromOutofCanvasToRight());
         await learnjs.fs.Speech.tell(learnjs.character.goodProf, 'Du kannst aus folgenden Themenfeldern wählen:');
         let playerChoices = {
             C0001: "Variablen (noch nicht abgeschlossen)",
@@ -681,8 +729,14 @@ var learnjs;
             C0003: "Datentypen  (noch nicht abgeschlossen)",
             C0004: "Zur Prüfung"
         };
-        if (learnjs.userData.Protagonist.variablesDone === true) {
+        if (learnjs.dataForSave.variablesDone === true) {
             playerChoices.C0001 = "Variablen | Abgeschlossen. Willst du es erneut hören?";
+        }
+        if (learnjs.dataForSave.operatorsDone === true) {
+            playerChoices.C0002 = "Operatoren | Abgeschlossen. Willst du es erneut hören?";
+        }
+        if (learnjs.dataForSave.datatypesDone === true) {
+            playerChoices.C0003 = "Datentypen | Abgeschlossen. Willst du es erneut hören?";
         }
         chooseTopic();
         async function chooseTopic() {
@@ -738,43 +792,24 @@ var learnjs;
         }
         await learnjs.fs.Speech.tell(learnjs.character.goodProf, `Mehr müsst ihr über Variablen in der Prüfung nicht wissen. Du entscheidest wie es weiter geht.`, true, 'editor--speech');
         learnjs.fs.Inventory.add(learnjs.items.variables);
-        itemAdded();
-        function itemAdded() {
+        await itemAdded();
+        async function itemAdded() {
             setTimeout(() => {
                 learnjs.fs.Text.print('Ein Item wurde deinem Inventar hinzugefügt.');
                 learnjs.fs.Text.addClass('item-added');
             }, 1000);
             learnjs.fs.Text.close();
         }
-        learnjs.userData.Protagonist.variablesDone = true;
-        const variablesPages = `Weitere Nützliche Informationen findest du unter folgenden links:<br><br><a target="_blank" href="http://www.google.de">Google</a><br>`;
-        let playerChoices = {
-            C0001: "Mehr Informationen zu Variablen",
-            C0002: "Zurück zur Lernübersicht",
-            C0003: "Ich bin bereit für die Abschlussprüfung",
-        };
-        chooseVariablesAction();
-        async function chooseVariablesAction() {
-            let userInput = await learnjs.fs.Menu.getInput(playerChoices, "topic--select");
-            switch (userInput) {
-                case playerChoices.C0001:
-                    learnjs.fs.Text.print(variablesPages);
-                    break;
-                case playerChoices.C0002:
-                    return learnjs.Topics();
-                    break;
-                case playerChoices.C0003:
-                    return learnjs.Challenge();
-                    break;
-            }
-            ;
-        }
+        learnjs.dataForSave.variablesDone = true;
+        return learnjs.Topics();
     }
     learnjs.Variables = Variables;
 })(learnjs || (learnjs = {}));
 var learnjs;
 (function (learnjs) {
     async function homeSecond() {
+        learnjs.fs.Sound.fade(learnjs.sound.challengeMusic, 0, 0);
+        learnjs.fs.Sound.play(learnjs.sound.introMusic, 0.15, true);
         await learnjs.fs.Location.show(learnjs.locations.homeFloor);
         await learnjs.fs.Character.show(learnjs.character.mcMom, learnjs.character.mcMom.pose.happy, learnjs.fs.positionPercent(0, 100));
         await learnjs.fs.Speech.tell(learnjs.character.mcMom, `Hey mein Schatz! Wie war deine Prüfung <span class="color-red">${learnjs.userData.Protagonist.name}</span>?????`);
@@ -1052,6 +1087,8 @@ var learnjs;
         // music 
         menuMusic: "../Audio/menue-sound-loop.mp3",
         introMusic: "../Audio/peaceful.mp3",
+        heavenMusic: "../Audio/heaven-music.mp3",
+        challengeMusic: "../Audio/challenge-music.mp3",
         //simple sounds
         menuClick: "../Audio/menue-sound.mp3",
         menuOption: "../Audio/options.mp3",
@@ -1065,13 +1102,14 @@ var learnjs;
         Protagonist: {
             name: 'Default',
             variableTest: '',
-            variablesDone: false,
-            pointsCollected: 10,
+            pointsCollected: 0,
         },
     };
     learnjs.dataForSave = {
         nameProtagonist: "",
         variablesDone: false,
+        datatypesDone: false,
+        operatorsDone: false,
         progressMeter: 0,
     };
 })(learnjs || (learnjs = {}));
