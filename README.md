@@ -16,7 +16,7 @@ I = Inventar öffnen <br/>
 - [Code](https://github.com/Attinger/Fudge_Story-Attinger/tree/main/Source)
 - [Konzept](https://github.com/Attinger/Fudge_Story-Attinger/blob/main/concept/VN-Konzept.pdf)
 - [Branching Narratives](https://github.com/Attinger/Fudge_Story-Attinger/blob/main/concept/vn-paths.pdf)
-- [Alle Files](https://github.com/Attinger/Fudge_Story-Attinger/blob/main/zipped-file/Fudge_Story-Attinger.zip)
+- [Gepacktes Archiv](https://github.com/Attinger/Fudge_Story-Attinger/blob/main/zipped-file/Fudge_Story-Attinger.zip)
 
 ##  Abgabeformat
 
