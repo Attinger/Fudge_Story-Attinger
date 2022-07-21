@@ -2,16 +2,16 @@ namespace learnjs {
 
     export let sound = {
         // music 
-        menuMusic: "./audio/menue-sound-loop.mp3",
-        introMusic: "./audio/peaceful.mp3",
-        heavenMusic: "./audio/heaven-music.mp3",
-        challengeMusic: "./audio/challenge-music.mp3",
+        menuMusic: "./Audio/menue-sound-loop.mp3",
+        introMusic: "./Audio/peaceful.mp3",
+        heavenMusic: "./Audio/heaven-music.mp3",
+        challengeMusic: "./Audio/challenge-music.mp3",
 
         //simple sounds
-        menuClick: "./audio/menue-sound.mp3",
-        menuOption: "./audio/options.mp3",
-        type: "./audio/type.mp3",
-        delete: "./audio/delete.mp3",
+        menuClick: "./Audio/menue-sound.mp3",
+        menuOption: "./Audio/options.mp3",
+        type: "./Audio/type.mp3",
+        delete: "./Audio/delete.mp3",
     };
 
 }
